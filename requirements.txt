@@ -1,28 +1,8 @@
-# AI Providers
-groq
-openai
-anthropic
-google-generativeai
-cohere
-
-# Flask
-flask
-flask-cors
-
-# Yardımcı Kütüphaneler
-python-dotenv
-colorama
-markdown
-pygments
-gtts
-
-
 # Flask Web Server
-flask==3.0.0
+Flask==3.0.0
 flask-cors==4.0.0
-gunicorn 
-flask-socketio
-python-socketio
+flask-socketio==5.3.6
+gunicorn==23.0.0
 
 # AI Providers
 groq==0.4.2
@@ -40,5 +20,7 @@ gTTS==2.5.0
 # Utilities
 python-dotenv==1.0.0
 requests==2.31.0
-
-# Database
+colorama==0.4.6
+markdown==3.6
+pygments==2.18.0
+python-socketio==5.11.1
