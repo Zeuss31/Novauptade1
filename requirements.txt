@@ -39,4 +39,3 @@ python-dotenv==1.0.0
 requests==2.31.0
 
 # Database
-sqlite3  # Built-in Python
