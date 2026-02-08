@@ -1,0 +1,18 @@
+{
+  "id": "b2bd141a",
+  "type": "markdown",
+  "title": "Çarpışma algılama",
+  "content": "# Çarpışma algılama\n    if pygame.sprite.collide_rect(oyuncu1, oyuncu2):\n        print(\"Çarpışma!\")",
+  "language": "python",
+  "conversation_id": 145,
+  "created_at": "2025-10-09T20:51:21.133599",
+  "updated_at": "2025-10-09T20:51:21.133599",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "# Çarpışma algılama\n    if pygame.sprite.collide_rect(oyuncu1, oyuncu2):\n        print(\"Çarpışma!\")",
+      "timestamp": "2025-10-09T20:51:21.133599"
+    }
+  ]
+}

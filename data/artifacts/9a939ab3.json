@@ -1,0 +1,18 @@
+{
+  "id": "9a939ab3",
+  "type": "code",
+  "title": "Text Code",
+  "content": "Kodu inceledim ve sanırım bir sorun buldum! 🔍 Merak etme, bu tür hatalar çok yaygın!\n\n🐛 **Sorun:**\nSatır [X]: [Hatalı kod]\nSorun: [Açıklama]\n\n🔧 **Neden Hata Veriyor:**\n[Detaylı teknik açıklama]\n\n✅ **Çözüm:**",
+  "language": "text",
+  "conversation_id": 330,
+  "created_at": "2025-10-17T02:08:19.069269",
+  "updated_at": "2025-10-17T02:08:19.069269",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "Kodu inceledim ve sanırım bir sorun buldum! 🔍 Merak etme, bu tür hatalar çok yaygın!\n\n🐛 **Sorun:**\nSatır [X]: [Hatalı kod]\nSorun: [Açıklama]\n\n🔧 **Neden Hata Veriyor:**\n[Detaylı teknik açıklama]\n\n✅ **Çözüm:**",
+      "timestamp": "2025-10-17T02:08:19.069269"
+    }
+  ]
+}

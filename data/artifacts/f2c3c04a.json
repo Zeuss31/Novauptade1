@@ -1,0 +1,18 @@
+{
+  "id": "f2c3c04a",
+  "type": "code",
+  "title": "Function: oyuncu_yarat",
+  "content": "import random\n\ndef oyuncu_yarat(isim):\n    can = 100\n    saldiri_gucu = random.randint(10, 20)\n    return {\"isim\": isim, \"can\": can, \"saldiri_gucu\": saldiri_gucu}\n\ndef saldir(saldiran, savunulan):\n    vurus_gucu = saldiran[\"saldiri_gucu\"] + random.randint(-5, 5)  # Biraz rastgelelik\n    savunulan[\"can\"] -= vurus_gucu\n    print(f\"{saldiran['isim']} saldırdı! {savunulan['isim']} {vurus_gucu} hasar aldı.\")\n\ndef oyun_dongusu():\n    oyuncu1 = oyuncu_yarat(input(\"1. Oyuncunun adını girin: \"))\n    oyuncu2 = oyuncu_yarat(input(\"2. Oyuncunun adını girin: \"))\n\n    sira = random.choice([oyuncu1, oyuncu2])  # Rastgele başlama\n\n    while oyuncu1[\"can\"] > 0 and oyuncu2[\"can\"] > 0:\n        print(f\"\\n{sira['isim']}'nın sırası!\")\n        if sira == oyuncu1:\n            saldir(oyuncu1, oyuncu2)\n            sira = oyuncu2\n        else:\n            saldir(oyuncu2, oyuncu1)\n            sira = oyuncu1\n\n        print(f\"{oyuncu1['isim']} Can: {oyuncu1['can']}\")\n        print(f\"{oyuncu2['isim']} Can: {oyuncu2['can']}\")\n\n    if oyuncu1[\"can\"] <= 0:\n        print(f\"\\n{oyuncu2['isim']} KAZANDI!\")\n    else:\n        print(f\"\\n{oyuncu1['isim']} KAZANDI!\")\n\n# Oyunu başlat\noyun_dongusu()",
+  "language": "python",
+  "conversation_id": 331,
+  "created_at": "2025-10-17T02:18:54.544992",
+  "updated_at": "2025-10-17T02:18:54.544992",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\ndef oyuncu_yarat(isim):\n    can = 100\n    saldiri_gucu = random.randint(10, 20)\n    return {\"isim\": isim, \"can\": can, \"saldiri_gucu\": saldiri_gucu}\n\ndef saldir(saldiran, savunulan):\n    vurus_gucu = saldiran[\"saldiri_gucu\"] + random.randint(-5, 5)  # Biraz rastgelelik\n    savunulan[\"can\"] -= vurus_gucu\n    print(f\"{saldiran['isim']} saldırdı! {savunulan['isim']} {vurus_gucu} hasar aldı.\")\n\ndef oyun_dongusu():\n    oyuncu1 = oyuncu_yarat(input(\"1. Oyuncunun adını girin: \"))\n    oyuncu2 = oyuncu_yarat(input(\"2. Oyuncunun adını girin: \"))\n\n    sira = random.choice([oyuncu1, oyuncu2])  # Rastgele başlama\n\n    while oyuncu1[\"can\"] > 0 and oyuncu2[\"can\"] > 0:\n        print(f\"\\n{sira['isim']}'nın sırası!\")\n        if sira == oyuncu1:\n            saldir(oyuncu1, oyuncu2)\n            sira = oyuncu2\n        else:\n            saldir(oyuncu2, oyuncu1)\n            sira = oyuncu1\n\n        print(f\"{oyuncu1['isim']} Can: {oyuncu1['can']}\")\n        print(f\"{oyuncu2['isim']} Can: {oyuncu2['can']}\")\n\n    if oyuncu1[\"can\"] <= 0:\n        print(f\"\\n{oyuncu2['isim']} KAZANDI!\")\n    else:\n        print(f\"\\n{oyuncu1['isim']} KAZANDI!\")\n\n# Oyunu başlat\noyun_dongusu()",
+      "timestamp": "2025-10-17T02:18:54.544992"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "eeaed683",
+  "type": "code",
+  "title": "Function: register",
+  "content": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\nfrom werkzeug.security import generate_password_hash, check_password_hash\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://user:password@localhost/database'\ndb = SQLAlchemy(app)\n\nclass User(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(255), unique=True, nullable=False)\n    email = db.Column(db.String(255), unique=True, nullable=False)\n    password = db.Column(db.String(255), nullable=False)\n    created_at = db.Column(db.TIMESTAMP, server_default=db.func.now())\n    updated_at = db.Column(db.TIMESTAMP, server_default=db.func.now(), onupdate=db.func.now())\n    is_active = db.Column(db.Boolean, default=True)\n\n@app.route('/register', methods=['POST'])\ndef register():\n    username = request.form['username']\n    email = request.form['email']\n    password = request.form['password']\n\n    hashed_password = generate_password_hash(password, method='sha256')\n\n    new_user = User(username=username, email=email, password=hashed_password)\n    db.session.add(new_user)\n    db.session.commit()\n\n    return jsonify({'message': 'Yeni kullanıcı oluşturuldu!'})",
+  "language": "python",
+  "conversation_id": 519,
+  "created_at": "2025-10-31T09:44:01.940429",
+  "updated_at": "2025-10-31T09:44:01.940429",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\nfrom werkzeug.security import generate_password_hash, check_password_hash\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://user:password@localhost/database'\ndb = SQLAlchemy(app)\n\nclass User(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(255), unique=True, nullable=False)\n    email = db.Column(db.String(255), unique=True, nullable=False)\n    password = db.Column(db.String(255), nullable=False)\n    created_at = db.Column(db.TIMESTAMP, server_default=db.func.now())\n    updated_at = db.Column(db.TIMESTAMP, server_default=db.func.now(), onupdate=db.func.now())\n    is_active = db.Column(db.Boolean, default=True)\n\n@app.route('/register', methods=['POST'])\ndef register():\n    username = request.form['username']\n    email = request.form['email']\n    password = request.form['password']\n\n    hashed_password = generate_password_hash(password, method='sha256')\n\n    new_user = User(username=username, email=email, password=hashed_password)\n    db.session.add(new_user)\n    db.session.commit()\n\n    return jsonify({'message': 'Yeni kullanıcı oluşturuldu!'})",
+      "timestamp": "2025-10-31T09:44:01.940429"
+    }
+  ]
+}

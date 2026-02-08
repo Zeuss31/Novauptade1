@@ -1,0 +1,18 @@
+{
+  "id": "95321754",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can=100, saldiri_gucu=10):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, hedef):\n        zarar = random.randint(0, self.saldiri_gucu)\n        hedef.can -= zarar\n        print(f\"{self.ad}, {hedef.ad}'a {zarar} hasar verdi! Kalan can: {hedef.can}\")\n        if hedef.can <= 0:\n            print(f\"{hedef.ad} yenildi!\")\n        return hedef.can <= 0  # Eğer hedef yenildiyse True döner\n\ndef oyun_dongusu(karakter1, karakter2):\n    while True:\n        print(f\"\\n{karakter1.ad} ({karakter1.can} can) vs. {karakter2.ad} ({karakter2.can} can)\")\n        komut = input(f\"{karakter1.ad}, saldır (s) veya bekle (b)? \").lower()\n\n        if komut == \"s\":\n            if karakter1.saldir(karakter2):\n                break  # Karakter2 yenildiyse döngüden çık\n        elif komut == \"b\":\n            print(f\"{karakter1.ad} bekliyor...\")\n        else:\n            print(\"Geçersiz komut!\")\n            continue  # Geçersiz komut girildiyse tekrar komut iste\n\n        if karakter2.can <= 0:\n            break  # Karakter2 zaten yenildiyse döngüden çık\n\n        # Sıra Karakter2'ye geçiyor (otomatik saldırı)\n        if karakter2.saldir(karakter1):\n            break  # Karakter1 yenildiyse döngüden çık\n\nif __name__ == \"__main__\":\n    karakter1 = Karakter(\"Ryu\")\n    karakter2 = Karakter(\"Ken\")\n\n    print(\"Dövüş Oyunu Başlıyor!\")\n    oyun_dongusu(karakter1, karakter2)\n    print(\"Oyun Bitti!\")",
+  "language": "python",
+  "conversation_id": 202,
+  "created_at": "2025-10-13T15:00:59.256686",
+  "updated_at": "2025-10-13T15:00:59.256686",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can=100, saldiri_gucu=10):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, hedef):\n        zarar = random.randint(0, self.saldiri_gucu)\n        hedef.can -= zarar\n        print(f\"{self.ad}, {hedef.ad}'a {zarar} hasar verdi! Kalan can: {hedef.can}\")\n        if hedef.can <= 0:\n            print(f\"{hedef.ad} yenildi!\")\n        return hedef.can <= 0  # Eğer hedef yenildiyse True döner\n\ndef oyun_dongusu(karakter1, karakter2):\n    while True:\n        print(f\"\\n{karakter1.ad} ({karakter1.can} can) vs. {karakter2.ad} ({karakter2.can} can)\")\n        komut = input(f\"{karakter1.ad}, saldır (s) veya bekle (b)? \").lower()\n\n        if komut == \"s\":\n            if karakter1.saldir(karakter2):\n                break  # Karakter2 yenildiyse döngüden çık\n        elif komut == \"b\":\n            print(f\"{karakter1.ad} bekliyor...\")\n        else:\n            print(\"Geçersiz komut!\")\n            continue  # Geçersiz komut girildiyse tekrar komut iste\n\n        if karakter2.can <= 0:\n            break  # Karakter2 zaten yenildiyse döngüden çık\n\n        # Sıra Karakter2'ye geçiyor (otomatik saldırı)\n        if karakter2.saldir(karakter1):\n            break  # Karakter1 yenildiyse döngüden çık\n\nif __name__ == \"__main__\":\n    karakter1 = Karakter(\"Ryu\")\n    karakter2 = Karakter(\"Ken\")\n\n    print(\"Dövüş Oyunu Başlıyor!\")\n    oyun_dongusu(karakter1, karakter2)\n    print(\"Oyun Bitti!\")",
+      "timestamp": "2025-10-13T15:00:59.256686"
+    }
+  ]
+}

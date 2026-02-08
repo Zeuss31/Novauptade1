@@ -1,0 +1,18 @@
+{
+  "id": "c23c03ec",
+  "type": "markdown",
+  "title": "Klavye girdilerini işle",
+  "content": "# Klavye girdilerini işle\n    if event.type == pygame.KEYDOWN:\n        if event.key == pygame.K_a:\n            oyuncu1.rect.x -= oyuncu1.hiz\n        if event.key == pygame.K_d:\n            oyuncu1.rect.x += oyuncu1.hiz\n        if event.key == pygame.K_w:  # Oyuncu 1 saldırı tuşu\n            if pygame.sprite.collide_rect(oyuncu1, oyuncu2):\n                oyuncu2.can -= 10\n                print(\"Oyuncu 1 saldırdı! Oyuncu 2 canı:\", oyuncu2.can)\n\n        if event.key == pygame.K_LEFT:\n            oyuncu2.rect.x -= oyuncu2.hiz\n        if event.key == pygame.K_RIGHT:\n            oyuncu2.rect.x += oyuncu2.hiz\n        if event.key == pygame.K_UP:  # Oyuncu 2 saldırı tuşu\n            if pygame.sprite.collide_rect(oyuncu2, oyuncu1):\n                oyuncu1.can -= 10\n                print(\"Oyuncu 2 saldırdı! Oyuncu 1 canı:\", oyuncu1.can)\n\n    # Can kontrolü\n    if oyuncu1.can <= 0:\n        print(\"Oyuncu 2 kazandı!\")\n        calisiyor = False\n    if oyuncu2.can <= 0:\n        print(\"Oyuncu 1 kazandı!\")\n        calisiyor = False",
+  "language": "python",
+  "conversation_id": 145,
+  "created_at": "2025-10-09T20:51:21.133599",
+  "updated_at": "2025-10-09T20:51:21.133599",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "# Klavye girdilerini işle\n    if event.type == pygame.KEYDOWN:\n        if event.key == pygame.K_a:\n            oyuncu1.rect.x -= oyuncu1.hiz\n        if event.key == pygame.K_d:\n            oyuncu1.rect.x += oyuncu1.hiz\n        if event.key == pygame.K_w:  # Oyuncu 1 saldırı tuşu\n            if pygame.sprite.collide_rect(oyuncu1, oyuncu2):\n                oyuncu2.can -= 10\n                print(\"Oyuncu 1 saldırdı! Oyuncu 2 canı:\", oyuncu2.can)\n\n        if event.key == pygame.K_LEFT:\n            oyuncu2.rect.x -= oyuncu2.hiz\n        if event.key == pygame.K_RIGHT:\n            oyuncu2.rect.x += oyuncu2.hiz\n        if event.key == pygame.K_UP:  # Oyuncu 2 saldırı tuşu\n            if pygame.sprite.collide_rect(oyuncu2, oyuncu1):\n                oyuncu1.can -= 10\n                print(\"Oyuncu 2 saldırdı! Oyuncu 1 canı:\", oyuncu1.can)\n\n    # Can kontrolü\n    if oyuncu1.can <= 0:\n        print(\"Oyuncu 2 kazandı!\")\n        calisiyor = False\n    if oyuncu2.can <= 0:\n        print(\"Oyuncu 1 kazandı!\")\n        calisiyor = False",
+      "timestamp": "2025-10-09T20:51:21.133599"
+    }
+  ]
+}

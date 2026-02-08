@@ -1,0 +1,18 @@
+{
+  "id": "df7149a4",
+  "type": "code",
+  "title": "Text Code",
+  "content": "isim = input(\"İsminizi girin: \")\nprint(\"Merhaba, \" + isim + \"!\")",
+  "language": "text",
+  "conversation_id": 530,
+  "created_at": "2026-01-21T18:33:53.808579",
+  "updated_at": "2026-01-21T18:33:53.808579",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "isim = input(\"İsminizi girin: \")\nprint(\"Merhaba, \" + isim + \"!\")",
+      "timestamp": "2026-01-21T18:33:53.808579"
+    }
+  ]
+}

@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova AI - Gelişmiş Yapay Zeka Asistan</title>
+
+<!-- Socket.IO -->
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+<!-- Markdown Parser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.0/marked.min.js"></script>
+
+<!-- Syntax Highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+
+<!-- TradingView Widget -->
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+<!-- Chart.js (Alternatif) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Artifact CSS & JS -->
+
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* ============ TEMA DEĞİŞKENLERİ ============ */
+
+/* Dark Cyber (Varsayılan) */
+[data-theme="dark"] {
+--bg-primary: #0f0f0f;
+--bg-secondary: #1a1a1a;
+--bg-tertiary: #2a2a2a;
+--text-primary: #ffffff;
+--text-secondary: #a0a0a0;
+--accent: #00ff88;
+--accent-hover: #00cc6a;
+--border: #333;
+--search-color: #3b82f6;
+--gradient-1: #00ff88;
+--gradient-2: #00cc6a;
+}
+
+/* Neon Purple */
+[data-theme="neon"] {
+--bg-primary: #0a0012;
+--bg-secondary: #1a0028;
+--bg-tertiary: #2d0047;
+--text-primary: #ffffff;
+--text-secondary: #b794f6;
+--accent: #a855f7;
+--accent-hover: #9333ea;
+--border: #4c1d95;
+--search-color: #c084fc;
+--gradient-1: #a855f7;
+--gradient-2: #ec4899;
+}
+
+/* Matrix Green */
+[data-theme="matrix"] {
+--bg-primary: #000000;
+--bg-secondary: #001a00;
+--bg-tertiary: #003300;
+--text-primary: #00ff00;
+--text-secondary: #008800;
+--accent: #00ff00;
+--accent-hover: #00cc00;
+--border: #004400;
+--search-color: #00ff00;
+--gradient-1: #00ff00;
+--gradient-2: #00aa00;
+}
+
+/* Ocean Blue */
+[data-theme="ocean"] {
+--bg-primary: #001020;
+--bg-secondary: #002040;
+--bg-tertiary: #003060;
+--text-primary: #e0f2ff;
+--text-secondary: #7dd3fc;
+--accent: #06b6d4;
+--accent-hover: #0891b2;
+--border: #075985;
+--search-color: #38bdf8;
+--gradient-1: #06b6d4;
+--gradient-2: #3b82f6;
+}
+
+/* Sunset Orange */
+[data-theme="sunset"] {
+--bg-primary: #1a0f0a;
+--bg-secondary: #2d1810;
+--bg-tertiary: #442418;
+--text-primary: #fef3c7;
+--text-secondary: #fbbf24;
+--accent: #f59e0b;
+--accent-hover: #d97706;
+--border: #92400e;
+--search-color: #fb923c;
+--gradient-1: #f59e0b;
+--gradient-2: #ef4444;
+}
+
+/* Cyber Pink */
+[data-theme="cyber"] {
+--bg-primary: #0d0014;
+--bg-secondary: #1a0028;
+--bg-tertiary: #2d0047;
+--text-primary: #fce7f3;
+--text-secondary: #f9a8d4;
+--accent: #ec4899;
+--accent-hover: #db2777;
+--border: #831843;
+--search-color: #f472b6;
+--gradient-1: #ec4899;
+--gradient-2: #8b5cf6;
+}
+
+/* Northern Lights */
+[data-theme="aurora"] {
+--bg-primary: #0a1628;
+--bg-secondary: #112240;
+--bg-tertiary: #1a365d;
+--text-primary: #e0f2fe;
+--text-secondary: #7dd3fc;
+--accent: #22d3ee;
+--accent-hover: #06b6d4;
+--border: #0e7490;
+--search-color: #67e8f9;
+--gradient-1: #22d3ee;
+--gradient-2: #a855f7;
+}
+
+/* Wine Red 🍷🧛‍♂️ - VAMPIR TEMASI! */
+[data-theme="wine"] {
+--bg-primary: #1a0505;
+--bg-secondary: #2d0a0a;
+--bg-tertiary: #4a0f0f;
+--text-primary: #ffe4e1;
+--text-secondary: #ff6b7a;
+--accent: #dc143c;
+--accent-hover: #b01030;
+--border: #5c0a0a;
+--search-color: #ff4d6d;
+--gradient-1: #dc143c;
+--gradient-2: #8b0000;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: var(--bg-primary);
+color: var(--text-primary);
+height: 100vh;
+overflow: hidden;
+transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animated Background */
+body::before {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: 
+radial-gradient(circle at 20% 50%, var(--gradient-1) 0%, transparent 50%),
+radial-gradient(circle at 80% 80%, var(--gradient-2) 0%, transparent 50%);
+opacity: 0.03;
+animation: bgPulse 8s ease-in-out infinite;
+pointer-events: none;
+z-index: 0;
+}
+
+@keyframes bgPulse {
+0%, 100% { opacity: 0.03; transform: scale(1); }
+50% { opacity: 0.06; transform: scale(1.1); }
+}
+
+.container {
+display: flex;
+height: 100vh;
+position: relative;
+z-index: 1;
+}
+
+/* ============ GRAFİK MODAL ============ */
+#chartModal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.95);
+z-index: 10000;
+backdrop-filter: blur(10px);
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.chart-container-wrapper {
+position: relative;
+width: 90%;
+max-width: 1400px;
+height: 85%;
+margin: 3% auto;
+background: var(--bg-secondary);
+border-radius: 20px;
+border: 3px solid var(--accent);
+padding: 25px;
+box-shadow: 0 0 60px var(--accent);
+animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+from { 
+opacity: 0;
+transform: translateY(50px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.chart-close-btn {
+position: absolute;
+top: 20px;
+right: 20px;
+background: linear-gradient(135deg, #ff4444, #cc0000);
+border: none;
+color: white;
+padding: 12px 25px;
+border-radius: 10px;
+cursor: pointer;
+font-weight: bold;
+font-size: 16px;
+z-index: 10001;
+transition: all 0.3s;
+box-shadow: 0 4px 15px rgba(255,0,0,0.3);
+}
+
+.chart-close-btn:hover {
+transform: scale(1.1) rotate(5deg);
+box-shadow: 0 6px 25px rgba(255,0,0,0.5);
+}
+
+#chartTitle {
+color: var(--accent);
+margin-bottom: 20px;
+font-size: 24px;
+text-align: center;
+text-shadow: 0 0 20px var(--accent);
+}
+
+#chartContainer {
+width: 100%;
+height: calc(100% - 80px);
+background: var(--bg-tertiary);
+border-radius: 15px;
+border: 2px solid var(--border);
+}
+
+/* ============ BINANCE PANEL - GENİŞLETİLMİŞ ============ */
+.binance-toggle {
+position: fixed;
+top: 100px;
+right: 20px;
+z-index: 9998;
+background: var(--bg-tertiary);
+border: 2px solid var(--accent);
+border-radius: 50%;
+width: 60px;
+height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 28px;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+box-shadow: 0 0 20px var(--accent);
+animation: float 3s ease-in-out infinite;
+}
+
+.binance-toggle:hover {
+transform: scale(1.1) rotate(15deg);
+box-shadow: 0 0 30px var(--accent);
+}
+
+.binance-panel {
+position: fixed;
+top: 170px;
+right: 20px;
+width: 380px;
+background: var(--bg-secondary);
+border: 2px solid var(--accent);
+border-radius: 15px;
+padding: 20px;
+z-index: 9997;
+display: none;
+max-height: 70vh;
+overflow-y: auto;
+box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+animation: slideIn 0.3s ease-out;
+}
+
+.binance-panel.active {
+display: block;
+}
+
+.binance-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 15px;
+padding-bottom: 10px;
+border-bottom: 1px solid var(--border);
+}
+
+.binance-title {
+font-weight: bold;
+color: var(--accent);
+font-size: 18px;
+}
+
+.binance-coin-count {
+font-size: 12px;
+color: var(--text-secondary);
+background: var(--bg-tertiary);
+padding: 4px 8px;
+border-radius: 5px;
+}
+
+.binance-close {
+background: transparent;
+border: none;
+color: var(--text-primary);
+cursor: pointer;
+font-size: 24px;
+transition: all 0.3s;
+}
+
+.binance-close:hover {
+color: var(--accent);
+transform: rotate(90deg);
+}
+
+.binance-controls {
+display: flex;
+gap: 10px;
+margin-bottom: 15px;
+}
+
+.binance-btn {
+flex: 1;
+padding: 10px;
+background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+color: var(--bg-primary);
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+transition: all 0.3s;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.binance-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px var(--accent);
+}
+
+.binance-btn.stop {
+background: linear-gradient(135deg, #ff4444, #cc0000);
+}
+
+.coin-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 10px;
+}
+
+.coin-data {
+background: linear-gradient(135deg, rgba(0,255,136,0.05), rgba(0,255,136,0.1));
+padding: 12px;
+border-radius: 8px;
+border-left: 4px solid var(--accent);
+transition: all 0.3s;
+cursor: pointer;
+position: relative;
+}
+
+.coin-data:hover {
+transform: translateX(5px);
+background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,255,136,0.15));
+box-shadow: 0 4px 15px rgba(0,255,136,0.2);
+}
+
+.coin-data::after {
+content: '📈';
+position: absolute;
+right: 10px;
+top: 50%;
+transform: translateY(-50%);
+font-size: 20px;
+opacity: 0;
+transition: all 0.3s;
+}
+
+.coin-data:hover::after {
+opacity: 1;
+right: 15px;
+}
+
+.coin-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 5px;
+}
+
+.coin-name {
+font-weight: bold;
+color: var(--accent);
+font-size: 16px;
+}
+
+.coin-change {
+font-size: 11px;
+padding: 2px 6px;
+border-radius: 4px;
+font-weight: bold;
+}
+
+.coin-change.up {
+background: #10b981;
+color: white;
+}
+
+.coin-change.down {
+background: #ef4444;
+color: white;
+}
+
+.coin-price {
+font-size: 20px;
+color: var(--text-primary);
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+.coin-info {
+display: flex;
+justify-content: space-between;
+font-size: 11px;
+color: var(--text-secondary);
+}
+
+.coin-amount {
+opacity: 0.8;
+}
+
+.coin-time {
+opacity: 0.6;
+}
+
+/* ============ AI PREDICTION TOGGLE & PANEL ============ */
+.prediction-toggle {
+position: fixed;
+top: 180px;
+right: 20px;
+z-index: 9998;
+background: var(--bg-tertiary);
+border: 2px solid #f59e0b;
+border-radius: 50%;
+width: 60px;
+height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 28px;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+box-shadow: 0 0 20px #f59e0b;
+animation: float 3s ease-in-out infinite;
+animation-delay: 0.5s;
+}
+
+.prediction-toggle:hover {
+transform: scale(1.1) rotate(-15deg);
+box-shadow: 0 0 30px #f59e0b;
+}
+
+.prediction-panel {
+position: fixed;
+top: 250px;
+right: 20px;
+width: 420px;
+background: var(--bg-secondary);
+border: 2px solid #f59e0b;
+border-radius: 15px;
+padding: 20px;
+z-index: 9997;
+display: none;
+max-height: 72vh;
+overflow-y: auto;
+box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+animation: slideIn 0.3s ease-out;
+}
+
+.prediction-panel.active {
+display: block;
+}
+
+.prediction-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 15px;
+padding-bottom: 10px;
+border-bottom: 1px solid var(--border);
+}
+
+.prediction-title {
+font-weight: bold;
+color: #f59e0b;
+font-size: 18px;
+}
+
+.prediction-coin-count {
+font-size: 12px;
+color: var(--text-secondary);
+background: var(--bg-tertiary);
+padding: 4px 8px;
+border-radius: 5px;
+}
+
+.prediction-close {
+background: transparent;
+border: none;
+color: var(--text-primary);
+cursor: pointer;
+font-size: 24px;
+transition: all 0.3s;
+}
+
+.prediction-close:hover {
+color: #f59e0b;
+transform: rotate(90deg);
+}
+
+.market-summary-box {
+background: var(--bg-tertiary);
+padding: 15px;
+border-radius: 10px;
+margin-bottom: 15px;
+border-left: 4px solid #f59e0b;
+}
+
+.summary-title {
+font-weight: bold;
+color: #f59e0b;
+font-size: 14px;
+margin-bottom: 10px;
+}
+
+.summary-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 8px;
+margin-bottom: 10px;
+}
+
+.summary-item {
+display: flex;
+justify-content: space-between;
+font-size: 12px;
+padding: 5px;
+background: var(--bg-primary);
+border-radius: 5px;
+}
+
+.summary-label {
+color: var(--text-secondary);
+}
+
+.summary-value {
+font-weight: bold;
+}
+
+.market-sentiment-badge {
+text-align: center;
+padding: 10px;
+border-radius: 8px;
+font-weight: bold;
+font-size: 13px;
+background: var(--bg-primary);
+border: 2px solid var(--border);
+}
+
+.sentiment-positive {
+border-color: #10b981 !important;
+color: #10b981;
+background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.sentiment-negative {
+border-color: #ef4444 !important;
+color: #ef4444;
+background: rgba(239, 68, 68, 0.1) !important;
+}
+
+.sentiment-neutral {
+border-color: #f59e0b !important;
+color: #f59e0b;
+background: rgba(245, 158, 11, 0.1) !important;
+}
+
+.opportunities-section,
+.alerts-section {
+margin-bottom: 20px;
+}
+
+.section-header {
+font-size: 14px;
+font-weight: bold;
+color: #f59e0b;
+margin-bottom: 10px;
+padding: 8px;
+background: var(--bg-tertiary);
+border-radius: 6px;
+}
+
+.opportunities-grid,
+.alerts-grid {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.opportunity-card {
+background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+border: 2px solid #10b981;
+border-radius: 10px;
+padding: 12px;
+cursor: pointer;
+transition: all 0.3s;
+}
+
+.opportunity-card:hover {
+transform: translateX(5px);
+box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.opportunity-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 8px;
+}
+
+.opportunity-symbol {
+font-weight: bold;
+font-size: 16px;
+color: #10b981;
+}
+
+.opportunity-confidence {
+background: #10b981;
+color: white;
+padding: 3px 8px;
+border-radius: 5px;
+font-size: 11px;
+font-weight: bold;
+}
+
+.opportunity-action {
+font-size: 13px;
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+.opportunity-price {
+font-size: 12px;
+color: var(--text-secondary);
+margin-bottom: 5px;
+}
+
+.opportunity-signals {
+font-size: 11px;
+color: var(--text-secondary);
+line-height: 1.5;
+}
+
+.alert-card {
+background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+border: 2px solid #ef4444;
+border-radius: 10px;
+padding: 10px;
+animation: alertPulse 2s ease-in-out infinite;
+}
+
+@keyframes alertPulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.85; }
+}
+
+.alert-message {
+font-size: 12px;
+color: #ef4444;
+font-weight: bold;
+}
+
+.alert-type {
+display: inline-block;
+font-size: 10px;
+background: #ef4444;
+color: white;
+padding: 2px 6px;
+border-radius: 4px;
+margin-top: 5px;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+position: fixed;
+top: 20px;
+right: 20px;
+z-index: 9999;
+background: var(--bg-tertiary);
+border: 2px solid var(--accent);
+border-radius: 50%;
+width: 60px;
+height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 28px;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+box-shadow: 0 0 20px var(--accent);
+animation: float 3s ease-in-out infinite;
+}
+
+.theme-toggle:hover {
+transform: scale(1.1) rotate(180deg);
+box-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent);
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0px); }
+50% { transform: translateY(-10px); }
+}
+
+/* Theme Menu */
+.theme-menu {
+position: fixed;
+top: 90px;
+right: 20px;
+background: var(--bg-secondary);
+border: 2px solid var(--accent);
+border-radius: 15px;
+padding: 15px;
+display: none;
+flex-direction: column;
+gap: 10px;
+z-index: 9998;
+box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+animation: slideIn 0.3s ease-out;
+max-height: 80vh;
+overflow-y: auto;
+}
+
+.theme-menu.active {
+display: flex;
+}
+
+@keyframes slideIn {
+from {
+opacity: 0;
+transform: translateY(-20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.theme-btn {
+padding: 12px 20px;
+background: var(--bg-tertiary);
+border: 2px solid var(--border);
+border-radius: 10px;
+color: var(--text-primary);
+cursor: pointer;
+transition: all 0.3s;
+font-weight: bold;
+text-align: left;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.theme-btn:hover {
+background: var(--accent);
+color: var(--bg-primary);
+border-color: var(--accent);
+transform: translateX(5px);
+}
+
+.theme-btn.active {
+background: var(--accent);
+color: var(--bg-primary);
+border-color: var(--accent);
+box-shadow: 0 0 20px var(--accent);
+}
+
+/* Sidebar */
+.sidebar {
+width: 300px;
+background: var(--bg-secondary);
+border-right: 1px solid var(--border);
+display: flex;
+flex-direction: column;
+transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-header {
+padding: 20px;
+border-bottom: 1px solid var(--border);
+}
+
+.logo {
+font-size: 24px;
+font-weight: bold;
+margin-bottom: 15px;
+display: flex;
+align-items: center;
+gap: 10px;
+background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.7; }
+}
+
+.logo::before {
+content: "🤖";
+font-size: 32px;
+-webkit-text-fill-color: initial;
+animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-5px); }
+}
+
+.model-selector {
+margin: 15px 0;
+}
+
+.model-selector select {
+width: 100%;
+padding: 10px;
+background: var(--bg-tertiary);
+color: var(--text-primary);
+border: 1px solid var(--border);
+border-radius: 8px;
+font-size: 14px;
+cursor: pointer;
+margin-bottom: 8px;
+transition: all 0.3s;
+}
+
+.model-selector select:hover {
+border-color: var(--accent);
+box-shadow: 0 0 10px var(--accent);
+}
+
+.model-selector select:focus {
+outline: none;
+border-color: var(--accent);
+}
+
+.model-info {
+font-size: 11px;
+color: var(--text-secondary);
+padding: 5px;
+text-align: center;
+}
+
+.new-chat-btn {
+width: 100%;
+padding: 12px;
+background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+color: var(--bg-primary);
+border: none;
+border-radius: 8px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.new-chat-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px var(--accent);
+}
+
+.conversations-list {
+flex: 1;
+overflow-y: auto;
+padding: 10px;
+}
+
+.conversation-item {
+padding: 12px;
+margin: 5px 0;
+background: var(--bg-tertiary);
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.2s;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border: 1px solid transparent;
+}
+
+.conversation-item:hover {
+background: var(--border);
+border-color: var(--accent);
+transform: translateX(5px);
+}
+
+.conversation-item.active {
+background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+color: var(--bg-primary);
+box-shadow: 0 0 15px var(--accent);
+}
+
+.delete-btn {
+background: #ff4444;
+color: white;
+border: none;
+padding: 5px 10px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 12px;
+transition: all 0.3s;
+}
+
+.delete-btn:hover {
+background: #ff0000;
+transform: scale(1.1);
+}
+
+/* Chat Area */
+.chat-area {
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+
+.chat-header {
+padding: 20px;
+border-bottom: 1px solid var(--border);
+background: var(--bg-secondary);
+transition: all 0.5s;
+position: relative;
+}
+
+.chat-header h2 {
+font-size: 20px;
+background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.messages {
+flex: 1;
+overflow-y: auto;
+padding: 20px;
+}
+
+.message {
+margin: 15px 0;
+padding: 15px;
+border-radius: 12px;
+max-width: 80%;
+animation: messageSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+transition: all 0.3s;
+}
+
+@keyframes messageSlide {
+from {
+opacity: 0;
+transform: translateY(20px) scale(0.95);
+}
+to {
+opacity: 1;
+transform: translateY(0) scale(1);
+}
+}
+
+.message:hover {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.message.user {
+background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+color: var(--bg-primary);
+margin-left: auto;
+box-shadow: 0 0 15px var(--accent);
+}
+
+.message.assistant {
+background: var(--bg-secondary);
+border: 1px solid var(--border);
+max-width: 100%;
+}
+
+.message-header {
+font-weight: bold;
+margin-bottom: 8px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.message-content {
+line-height: 1.6;
+direction: ltr;
+unicode-bidi: plaintext;
+white-space: pre-wrap;
+word-break: break-word;
+}
+
+.message-content pre {
+background: #1e1e1e;
+padding: 15px;
+border-radius: 8px;
+overflow-x: auto;
+margin: 10px 0;
+border-left: 3px solid var(--accent);
+}
+
+.message-content code {
+background: #1e1e1e;
+padding: 2px 6px;
+border-radius: 4px;
+font-family: 'Courier New', monospace;
+}
+
+.tts-btn {
+background: var(--accent);
+border: none;
+padding: 5px 10px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 12px;
+margin-left: auto;
+transition: all 0.3s;
+}
+
+.tts-btn:hover {
+transform: scale(1.1);
+box-shadow: 0 0 10px var(--accent);
+}
+
+/* Search Result Box */
+.search-result {
+background: rgba(59, 130, 246, 0.1);
+border: 1px solid var(--search-color);
+border-radius: 8px;
+padding: 15px;
+margin: 10px 0;
+animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+0%, 100% { box-shadow: 0 0 5px var(--search-color); }
+50% { box-shadow: 0 0 20px var(--search-color); }
+}
+
+.search-result-title {
+color: var(--search-color);
+font-weight: bold;
+margin-bottom: 10px;
+font-size: 14px;
+}
+
+.search-result-item {
+background: rgba(255,255,255,0.05);
+padding: 10px;
+margin: 8px 0;
+border-radius: 6px;
+border-left: 3px solid var(--search-color);
+transition: all 0.3s;
+}
+
+.search-result-item:hover {
+transform: translateX(5px);
+background: rgba(255,255,255,0.1);
+}
+
+.search-result-item-title {
+font-weight: 600;
+color: var(--search-color);
+margin-bottom: 5px;
+}
+
+.search-result-item-url {
+font-size: 11px;
+color: var(--text-secondary);
+margin-bottom: 5px;
+}
+
+.search-result-item-content {
+font-size: 13px;
+color: var(--text-primary);
+line-height: 1.5;
+}
+
+/* Input Area */
+.input-area {
+padding: 20px;
+border-top: 1px solid var(--border);
+background: var(--bg-secondary);
+transition: all 0.5s;
+}
+
+.input-container {
+display: flex;
+gap: 10px;
+align-items: flex-end;
+}
+
+#messageInput {
+flex: 1;
+padding: 15px;
+background: var(--bg-tertiary);
+border: 2px solid var(--border);
+border-radius: 12px;
+color: var(--text-primary);
+font-size: 16px;
+resize: none;
+min-height: 50px;
+max-height: 150px;
+transition: all 0.3s;
+}
+
+#messageInput:focus {
+outline: none;
+border-color: var(--accent);
+box-shadow: 0 0 15px var(--accent);
+}
+
+.send-btn, .upload-btn, .search-btn {
+padding: 15px 30px;
+background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+color: var(--bg-primary);
+border: none;
+border-radius: 12px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.search-btn {
+background: linear-gradient(135deg, var(--search-color), #2563eb);
+}
+
+.send-btn:hover, .upload-btn:hover, .search-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 6px 25px var(--accent);
+}
+
+.send-btn:disabled {
+background: var(--border);
+cursor: not-allowed;
+transform: none;
+}
+
+.typing-indicator {
+display: none;
+padding: 15px;
+background: var(--bg-secondary);
+border-radius: 12px;
+max-width: 80px;
+margin: 15px 0;
+}
+
+.typing-indicator.active {
+display: block;
+}
+
+.typing-indicator span {
+display: inline-block;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: var(--accent);
+animation: typing 1.4s infinite;
+margin: 0 2px;
+box-shadow: 0 0 10px var(--accent);
+}
+
+.typing-indicator span:nth-child(2) {
+animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+animation-delay: 0.4s;
+}
+
+@keyframes typing {
+0%, 60%, 100% {
+transform: translateY(0);
+}
+30% {
+transform: translateY(-10px);
+}
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+width: 10px;
+}
+
+::-webkit-scrollbar-track {
+background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+background: var(--accent);
+border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: var(--accent-hover);
+}
+.delete-all-btn {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.delete-all-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #ff0000, #990000);
+}
+</style>
+</head>
+<body data-theme="dark">
+<!-- Theme Toggle -->
+<div class="theme-toggle" onclick="toggleThemeMenu()">🎨</div>
+<div class="theme-menu" id="themeMenu">
+<button class="theme-btn active" onclick="changeTheme('dark')" data-theme="dark">
+<span>🌌</span> Dark Cyber
+</button>
+<button class="theme-btn" onclick="changeTheme('neon')" data-theme="neon">
+<span>💜</span> Neon Purple
+</button>
+<button class="theme-btn" onclick="changeTheme('matrix')" data-theme="matrix">
+<span>💚</span> Matrix Green
+</button>
+<button class="theme-btn" onclick="changeTheme('ocean')" data-theme="ocean">
+<span>🌊</span> Ocean Blue
+</button>
+<button class="theme-btn" onclick="changeTheme('sunset')" data-theme="sunset">
+<span>🌅</span> Sunset Orange
+</button>
+<button class="theme-btn" onclick="changeTheme('cyber')" data-theme="cyber">
+<span>💗</span> Cyber Pink
+</button>
+<button class="theme-btn" onclick="changeTheme('aurora')" data-theme="aurora">
+<span>✨</span> Aurora
+</button>
+<button class="theme-btn" onclick="changeTheme('wine')" data-theme="wine">
+<span>🧛‍♂️</span> Wine Red
+</button>
+</div>
+
+<!-- Binance Toggle -->
+<div class="binance-toggle" onclick="toggleBinance()">📊</div>
+
+<!-- Binance Panel - GENİŞLETİLMİŞ -->
+<div class="binance-panel" id="binancePanel">
+<div class="binance-header">
+<div>
+<div class="binance-title">📊 Binance Canlı</div>
+<div class="binance-coin-count" id="coinCount">0 coin</div>
+</div>
+<button class="binance-close" onclick="toggleBinance()">✕</button>
+</div>
+<div class="binance-controls">
+<button class="binance-btn" onclick="startBinance()">Başlat</button>
+<button class="binance-btn stop" onclick="stopBinance()">Durdur</button>
+</div>
+<div class="coin-grid" id="binanceData">
+<p style="text-align: center; color: #888; padding: 20px;">Henüz veri yok. "Başlat" butonuna tıkla!</p>
+</div>
+</div>
+
+<!-- AI PREDICTION TOGGLE -->
+<div class="prediction-toggle" onclick="togglePrediction()">🤖</div>
+
+<!-- AI PREDICTION PANEL -->
+<div class="prediction-panel" id="predictionPanel">
+<div class="prediction-header">
+<div>
+<div class="prediction-title">🤖 AI Tahmin Motoru</div>
+<div class="prediction-coin-count" id="predictionCount">0 tahmin</div>
+</div>
+<button class="prediction-close" onclick="togglePrediction()">✕</button>
+</div>
+
+<!-- Market Summary -->
+<div class="market-summary-box">
+<div class="summary-title">📊 Piyasa Durumu</div>
+<div class="summary-grid">
+<div class="summary-item">
+<span class="summary-label">Toplam:</span>
+<span class="summary-value" id="summaryTotal">0</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">Yükselen:</span>
+<span class="summary-value" style="color: #10b981;" id="summaryRising">0</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">Düşen:</span>
+<span class="summary-value" style="color: #ef4444;" id="summaryFalling">0</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">Yatay:</span>
+<span class="summary-value" style="color: #f59e0b;" id="summaryNeutral">0</span>
+</div>
+</div>
+<div class="market-sentiment-badge" id="marketSentimentBadge">
+📊 Bekleniyor...
+</div>
+</div>
+
+<!-- Opportunities -->
+<div class="opportunities-section">
+<div class="section-header">🚀 En İyi Fırsatlar</div>
+<div class="opportunities-grid" id="opportunitiesGrid">
+<p style="text-align: center; color: #888; padding: 20px; font-size: 12px;">
+Henüz yeterli veri yok<br>Biraz bekleyin...
+</p>
+</div>
+</div>
+
+<!-- Alerts -->
+<div class="alerts-section">
+<div class="section-header">⚠️ Risk Uyarıları</div>
+<div class="alerts-grid" id="alertsGrid">
+<p style="text-align: center; color: #888; padding: 20px; font-size: 12px;">
+Şu an risk uyarısı yok
+</p>
+</div>
+</div>
+</div>
+
+<!-- GRAFİK MODAL -->
+<div id="chartModal">
+<div class="chart-container-wrapper">
+<button class="chart-close-btn" onclick="closeChart()">✕ Kapat</button>
+<h2 id="chartTitle">BTC/USDT Grafiği</h2>
+<div id="chartContainer"></div>
+</div>
+</div>
+
+<div class="container">
+<!-- Sidebar -->
+<div class="sidebar">
+<div class="sidebar-header">
+<div class="logo">Nova AI</div>
+
+<!-- Model Seçici -->
+<div class="model-selector">
+<select id="providerSelect" onchange="updateModelOptions()">
+<option value="">Yükleniyor...</option>
+</select>
+<select id="modelSelect" onchange="updateModelInfo()">
+<option value="">Model seç...</option>
+</select>
+<div class="model-info" id="modelInfo">Provider ve model seçin</div>
+</div>
+
+<button class="new-chat-btn" onclick="createNewConversation()">
+➕ Yeni Sohbet
+</button>
+<button class="delete-all-btn" onclick="deleteAllConversations()">
+    🗑️ Tümünü Sil
+</button>
+</div>
+<div class="conversations-list" id="conversationsList"></div>
+</div>
+
+<!-- Chat Area -->
+<div class="chat-area">
+<div class="chat-header">
+<h2>🤖 Nova - Gelişmiş Yapay Zeka Asistan</h2>
+</div>
+<div class="messages" id="messages">
+<div class="message assistant">
+<div class="message-header">🤖 Nova</div>
+<div class="message-content">
+Merhaba! Ben Nova, senin gelişmiş yapay zeka asistanınım. 🚀<br><br>
+Sana şu konularda yardımcı olabilirim:<br>
+• 💻 Kod yazma ve çalıştırma (Artifact sistemi aktif!)<br>
+• 📚 Öğrenme ve araştırma<br>
+• ✍️ Yaratıcı içerik üretme<br>
+• 🔧 Problem çözme<br>
+• 💬 Genel sohbet<br>
+• 🔍 <strong>Web'de arama yapma</strong> (YENİ!)<br>
+• 🎨 <strong>8 farklı tema</strong> (Sağ üstten değiştir!)<br>
+• 📊 <strong>Binance canlı fiyatlar - 25+ COİN</strong> (Sağ üstten başlat!)<br>
+• 📈 <strong>Coin grafiklerini gör</strong> (Coin'e tıkla!)<br>
+• 🤖 <strong>AI Tahmin Motoru</strong> (YENİ! Sağ üstten aç!)<br><br>
+Sol üstten istediğin AI modelini seçebilirsin!<br><br>
+Nasıl yardımcı olabilirim?
+</div>
+</div>
+</div>
+<div class="typing-indicator" id="typingIndicator">
+<span></span><span></span><span></span>
+</div>
+<div class="input-area">
+<div class="input-container">
+<input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)">
+<button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+📎 Dosya
+</button>
+<button class="search-btn" onclick="searchWeb()">
+🔍 Ara
+</button>
+<textarea 
+id="messageInput" 
+placeholder="Mesajını yaz... (Enter = Gönder, Shift+Enter = Yeni satır)"
+onkeydown="handleKeyPress(event)"
+></textarea>
+<button class="send-btn" id="sendBtn" onclick="sendMessage()">
+Gönder 🚀
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// Socket.IO bağlantısı (Binance için)
+const socket = io({
+transports: ['websocket', 'polling'],
+reconnection: true,
+reconnectionDelay: 1000,
+reconnectionAttempts: 5
+});
+
+// Bağlantı testleri
+socket.on('connect', function() {
+console.log('✅ Socket.IO bağlandı!');
+});
+
+socket.on('disconnect', function() {
+console.log('❌ Socket.IO bağlantısı kesildi');
+});
+
+socket.on('connect_error', function(error) {
+console.error('❌ Bağlantı hatası:', error);
+});
+
+let currentConversationId = null;
+let availableProviders = {};
+let availableModels = {};
+let selectedProvider = 'google';
+let selectedModel = '';
+
+// Binance verilerini tutacak obje - GENİŞLETİLMİŞ
+const binanceData = {};
+const binancePriceHistory = {}; // Fiyat değişimini takip için
+
+// ============ AI PREDICTION DEĞİŞKENLERİ ============
+const coinPredictions = {};
+let predictionUpdateInterval = null;
+
+// ============ GRAFİK FONKSİYONLARI ============
+
+function openChart(symbol) {
+const baseCoin = symbol.replace('USDT', '');
+document.getElementById('chartTitle').textContent = `📊 ${baseCoin}/USDT Canlı Grafik`;
+document.getElementById('chartModal').style.display = 'block';
+document.body.style.overflow = 'hidden';
+
+const chartContainer = document.getElementById('chartContainer');
+chartContainer.innerHTML = '';
+
+// TradingView widget'ı oluştur
+new TradingView.widget({
+"autosize": true,
+"symbol": `BINANCE:${symbol}`,
+"interval": "15",
+"timezone": "Europe/Istanbul",
+"theme": document.body.getAttribute('data-theme') === 'dark' || 
+document.body.getAttribute('data-theme') === 'matrix' ||
+document.body.getAttribute('data-theme') === 'neon' ||
+document.body.getAttribute('data-theme') === 'wine' ? 'dark' : 'light',
+"style": "1",
+"locale": "tr",
+"toolbar_bg": "#f1f3f6",
+"enable_publishing": false,
+"allow_symbol_change": true,
+"container_id": "chartContainer",
+"studies": [
+"MASimple@tv-basicstudies",
+"RSI@tv-basicstudies"
+],
+"show_popup_button": true,
+"popup_width": "1000",
+"popup_height": "650"
+});
+}
+
+function closeChart() {
+document.getElementById('chartModal').style.display = 'none';
+document.body.style.overflow = 'auto';
+}
+
+// ESC tuşu ile kapatma
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') closeChart();
+});
+
+// ============ BINANCE WEBSOCKET - 25+ COİN DESTEĞİ ============
+
+socket.on('binance_update', function(data) {
+console.log('📊 Binance verisi geldi:', data);
+
+if (!data.stream || !data.data) return;
+
+const stream = data.stream;
+const tradeData = data.data;
+
+// Stream adından coin sembolünü al (btcusdt@trade -> BTCUSDT)
+const symbol = stream.split('@')[0].toUpperCase();
+
+// Önceki fiyatı kaydet (değişim hesabı için)
+const oldPrice = binanceData[symbol] ? parseFloat(binanceData[symbol].price) : 0;
+const newPrice = parseFloat(tradeData.p);
+
+// Fiyat değişimini hesapla
+let priceChange = 0;
+let changeDirection = 'neutral';
+if (oldPrice > 0) {
+priceChange = ((newPrice - oldPrice) / oldPrice * 100).toFixed(2);
+changeDirection = newPrice > oldPrice ? 'up' : (newPrice < oldPrice ? 'down' : 'neutral');
+}
+
+// Veriyi güncelle
+binanceData[symbol] = {
+price: newPrice.toFixed(2),
+amount: parseFloat(tradeData.q).toFixed(6),
+timestamp: new Date(tradeData.T).toLocaleTimeString('tr-TR'),
+change: priceChange,
+direction: changeDirection
+};
+
+console.log(`💰 ${symbol}: ${binanceData[symbol].price} (${changeDirection})`);
+
+// UI'ı güncelle
+updateBinanceUI();
+});
+
+function toggleBinance() {
+const panel = document.getElementById('binancePanel');
+panel.classList.toggle('active');
+}
+
+async function startBinance() {
+try {
+const response = await fetch('/api/binance/start', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({})
+});
+
+const data = await response.json();
+
+if (data.success) {
+addMessageToUI('assistant', `✅ Binance WebSocket başlatıldı! ${data.symbols.length} coin için canlı veriler geliyor... Coin'lere tıklayarak grafikleri görüntüleyebilirsin! 📈`);
+console.log('📊 İzlenen coinler:', data.symbols);
+// Prediction sistemini başlat
+startPredictionSystem();
+} else {
+addMessageToUI('assistant', '❌ Hata: ' + data.error);
+}
+} catch (error) {
+addMessageToUI('assistant', '❌ Binance başlatılamadı: ' + error.message);
+}
+}
+
+async function stopBinance() {
+try {
+const response = await fetch('/api/binance/stop', {
+method: 'POST'
+});
+
+const data = await response.json();
+
+if (data.success) {
+addMessageToUI('assistant', '🛑 Binance WebSocket durduruldu.');
+document.getElementById('binanceData').innerHTML = 
+'<p style="text-align: center; color: #888; padding: 20px;">Durduruldu. "Başlat" butonuna tıkla.</p>';
+document.getElementById('coinCount').textContent = '0 coin';
+// Prediction sistemini durdur
+stopPredictionSystem();
+}
+} catch (error) {
+addMessageToUI('assistant', '❌ Durdurma hatası: ' + error.message);
+}
+}
+
+function updateBinanceUI() {
+const container = document.getElementById('binanceData');
+const coinCount = document.getElementById('coinCount');
+
+// Coin sayısını güncelle
+const totalCoins = Object.keys(binanceData).length;
+coinCount.textContent = `${totalCoins} coin`;
+
+// Coinleri fiyata göre sırala (yüksekten düşüğe)
+const sortedCoins = Object.entries(binanceData).sort((a, b) => {
+return parseFloat(b[1].price) - parseFloat(a[1].price);
+});
+
+let html = '';
+for (const [symbol, data] of sortedCoins) {
+const changeClass = data.direction === 'up' ? 'up' : (data.direction === 'down' ? 'down' : '');
+const changeSymbol = data.direction === 'up' ? '▲' : (data.direction === 'down' ? '▼' : '●');
+
+html += `
+<div class="coin-data" onclick="openChart('${symbol}')">
+<div class="coin-header">
+<div class="coin-name">${symbol}</div>
+${data.change != 0 ? `<div class="coin-change ${changeClass}">${changeSymbol} ${Math.abs(data.change)}%</div>` : ''}
+</div>
+<div class="coin-price">${data.price}</div>
+<div class="coin-info">
+<span class="coin-amount">Vol: ${data.amount}</span>
+<span class="coin-time">${data.timestamp}</span>
+</div>
+</div>
+`;
+}
+
+container.innerHTML = html || '<p style="text-align: center; color: #888; padding: 20px;">Veriler yükleniyor...</p>';
+}
+
+// ============ AI PREDICTION FONKSİYONLARI ============
+
+function togglePrediction() {
+const panel = document.getElementById('predictionPanel');
+panel.classList.toggle('active');
+}
+
+function startPredictionSystem() {
+// Her 5 saniyede bir güncelle
+if (predictionUpdateInterval) clearInterval(predictionUpdateInterval);
+predictionUpdateInterval = setInterval(() => {
+updatePredictions();
+fetchOpportunities();
+fetchAlerts();
+fetchMarketSummary();
+}, 5000);
+// İlk güncelleme
+setTimeout(() => updatePredictions(), 2000);
+}
+
+function stopPredictionSystem() {
+if (predictionUpdateInterval) {
+clearInterval(predictionUpdateInterval);
+predictionUpdateInterval = null;
+}
+}
+
+async function updatePredictions() {
+const symbols = Object.keys(binanceData);
+if (symbols.length === 0) return;
+// Her seferinde 5 coin'i güncelle (rate limiting)
+const toUpdate = symbols.slice(0, 5);
+for (const symbol of toUpdate) {
+await fetchPrediction(symbol);
+await new Promise(r => setTimeout(r, 200));
+}
+}
+
+async function fetchPrediction(symbol) {
+try {
+const response = await fetch(`/api/prediction/${symbol}`);
+const prediction = await response.json();
+if (prediction.status !== 'insufficient_data') {
+coinPredictions[symbol] = prediction;
+updatePredictionCount();
+}
+} catch (error) {
+console.error(`Tahmin hatası (${symbol}):`, error);
+}
+}
+
+function updatePredictionCount() {
+const count = Object.keys(coinPredictions).length;
+document.getElementById('predictionCount').textContent = `${count} tahmin`;
+}
+
+async function fetchOpportunities() {
+try {
+const response = await fetch('/api/prediction/opportunities?limit=5');
+const opportunities = await response.json();
+updateOpportunitiesUI(opportunities);
+} catch (error) {
+console.error('Fırsatlar alınamadı:', error);
+}
+}
+
+async function fetchAlerts() {
+try {
+const response = await fetch('/api/prediction/alerts');
+const alerts = await response.json();
+updateAlertsUI(alerts);
+} catch (error) {
+console.error('Uyarılar alınamadı:', error);
+}
+}
+
+async function fetchMarketSummary() {
+try {
+const response = await fetch('/api/prediction/market-summary');
+const summary = await response.json();
+updateMarketSummaryUI(summary);
+} catch (error) {
+console.error('Piyasa özeti alınamadı:', error);
+}
+}
+
+function updateOpportunitiesUI(opportunities) {
+const grid = document.getElementById('opportunitiesGrid');
+if (opportunities.length === 0) {
+grid.innerHTML = '<p style="text-align: center; color: #888; padding: 20px; font-size: 12px;">Şu an uygun fırsat yok</p>';
+return;
+}
+let html = '';
+opportunities.forEach(opp => {
+html += `
+<div class="opportunity-card" onclick="showPredictionInChat('${opp.symbol}')">
+<div class="opportunity-header">
+<span class="opportunity-symbol">${opp.symbol}</span>
+<span class="opportunity-confidence">${opp.confidence}%</span>
+</div>
+<div class="opportunity-action">${opp.action}</div>
+<div class="opportunity-price">${opp.indicators.current_price} (${opp.indicators.change_5m > 0 ? '+' : ''}${opp.indicators.change_5m}%)</div>
+<div class="opportunity-signals">
+${opp.signals.slice(0, 2).join('<br>')}
+</div>
+</div>
+`;
+});
+grid.innerHTML = html;
+}
+
+function updateAlertsUI(alerts) {
+const grid = document.getElementById('alertsGrid');
+if (alerts.length === 0) {
+grid.innerHTML = '<p style="text-align: center; color: #888; padding: 20px; font-size: 12px;">Şu an risk uyarısı yok</p>';
+return;
+}
+let html = '';
+alerts.forEach(alert => {
+html += `
+<div class="alert-card">
+<div class="alert-message">${alert.message}</div>
+<span class="alert-type">${alert.type}</span>
+</div>
+`;
+});
+grid.innerHTML = html;
+}
+
+function updateMarketSummaryUI(summary) {
+if (!summary) return;
+document.getElementById('summaryTotal').textContent = summary.total_coins;
+document.getElementById('summaryRising').textContent = summary.rising;
+document.getElementById('summaryFalling').textContent = summary.falling;
+document.getElementById('summaryNeutral').textContent = summary.neutral;
+const badge = document.getElementById('marketSentimentBadge');
+badge.textContent = `${summary.sentiment_emoji} ${summary.sentiment}`;
+badge.className = 'market-sentiment-badge';
+if (summary.sentiment.includes('POZİTİF')) {
+badge.classList.add('sentiment-positive');
+} else if (summary.sentiment.includes('NEGATİF')) {
+badge.classList.add('sentiment-negative');
+} else {
+badge.classList.add('sentiment-neutral');
+}
+}
+
+async function showPredictionInChat(symbol) {
+try {
+const response = await fetch(`/api/prediction/${symbol}`);
+const pred = await response.json();
+let message = `🤖 **${symbol} AI TAHMİN RAPORU**\n\n`;
+message += `**Öneri:** ${pred.action}\n`;
+message += `**Güven Skoru:** ${pred.confidence}%\n`;
+message += `**Açıklama:** ${pred.explanation}\n\n`;
+message += `**Teknik Göstergeler:**\n`;
+message += `• RSI: ${pred.indicators.rsi}\n`;
+message += `• Trend: ${pred.indicators.trend}\n`;
+message += `• MA7: ${pred.indicators.ma_7}\n`;
+message += `• Volatilite: ${pred.indicators.volatility}\n\n`;
+message += `**Hedef Fiyatlar:**\n`;
+message += `• Güncel: ${pred.targets.current}\n`;
+message += `• Hedef Yüksek: ${pred.targets.target_high}\n`;
+message += `• Hedef Düşük: ${pred.targets.target_low}\n`;
+message += `• Stop Loss: ${pred.targets.stop_loss}\n\n`;
+message += `**AI Sinyalleri:**\n`;
+pred.signals.forEach(s => message += `${s}\n`);
+addMessageToUI('assistant', message);
+scrollToBottom();
+} catch (error) {
+console.error('Tahmin gösterilemedi:', error);
+}
+}
+
+// ============ TEMA SİSTEMİ ============
+
+function toggleThemeMenu() {
+const menu = document.getElementById('themeMenu');
+menu.classList.toggle('active');
+}
+
+function changeTheme(theme) {
+document.body.setAttribute('data-theme', theme);
+localStorage.setItem('nova-theme', theme);
+
+// Aktif tema butonunu güncelle
+document.querySelectorAll('.theme-btn').forEach(btn => {
+btn.classList.remove('active');
+if (btn.getAttribute('data-theme') === theme) {
+btn.classList.add('active');
+}
+});
+
+// Menüyü kapat
+document.getElementById('themeMenu').classList.remove('active');
+}
+
+// Kaydedilmiş temayı yükle
+const savedTheme = localStorage.getItem('nova-theme') || 'dark';
+changeTheme(savedTheme);
+
+// Menü dışına tıklandığında kapat
+document.addEventListener('click', (e) => {
+const menu = document.getElementById('themeMenu');
+const toggle = document.querySelector('.theme-toggle');
+const binancePanel = document.getElementById('binancePanel');
+const binanceToggle = document.querySelector('.binance-toggle');
+const predictionPanel = document.getElementById('predictionPanel');
+const predictionToggle = document.querySelector('.prediction-toggle');
+
+if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+menu.classList.remove('active');
+}
+
+if (!binancePanel.contains(e.target) && !binanceToggle.contains(e.target)) {
+// Binance panelini kapatma
+}
+
+if (!predictionPanel.contains(e.target) && !predictionToggle.contains(e.target)) {
+// Prediction panelini kapatma
+}
+});
+
+// ============ SAYFA YÜKLENDİĞİNDE ============
+
+document.addEventListener('DOMContentLoaded', () => {
+loadProviders();
+loadConversations();
+createNewConversation();
+checkOrCreateConversation();
+});
+
+// ============ PROVIDER & MODEL YÖNETİMİ ============
+
+async function loadProviders() {
+try {
+const response = await fetch('/api/providers');
+const data = await response.json();
+
+availableProviders = data.providers;
+availableModels = data.models;
+selectedProvider = data.default_provider;
+selectedModel = data.default_models[selectedProvider];
+
+const providerSelect = document.getElementById('providerSelect');
+providerSelect.innerHTML = '';
+
+availableProviders.forEach(provider => {
+const option = document.createElement('option');
+option.value = provider;
+option.textContent = provider.toUpperCase();
+if (provider === selectedProvider) option.selected = true;
+providerSelect.appendChild(option);
+});
+
+updateModelOptions();
+} catch (error) {
+console.error('Provider\'lar yüklenemedi:', error);
+}
+}
+
+function updateModelOptions() {
+const providerSelect = document.getElementById('providerSelect');
+const modelSelect = document.getElementById('modelSelect');
+
+selectedProvider = providerSelect.value;
+const models = availableModels[selectedProvider];
+
+modelSelect.innerHTML = '';
+
+models.forEach((model, index) => {
+const option = document.createElement('option');
+option.value = index;
+option.textContent = model;
+modelSelect.appendChild(option);
+});
+
+selectedModel = 0;
+modelSelect.value = selectedModel;
+
+updateModelInfo();
+}
+
+function updateModelInfo() {
+const modelSelect = document.getElementById('modelSelect');
+const modelInfo = document.getElementById('modelInfo');
+
+selectedModel = modelSelect.value;
+const modelName = availableModels[selectedProvider][selectedModel];
+
+modelInfo.textContent = `🤖 ${selectedProvider.toUpperCase()} - ${modelName}`;
+}
+
+// ============ WEB SEARCH FONKSİYONU 🔍 ============
+
+async function searchWeb() {
+const input = document.getElementById('messageInput');
+const query = input.value.trim();
+
+if (!query) {
+alert('Lütfen arama yapılacak bir metin girin!');
+return;
+}
+
+addMessageToUI('user', `🔍 Arama: ${query}`);
+input.value = '';
+input.style.height = '50px';
+
+const typingIndicator = document.getElementById('typingIndicator');
+typingIndicator.classList.add('active');
+scrollToBottom();
+
+try {
+const response = await fetch('/api/search', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({query: query})
+});
+
+const data = await response.json();
+typingIndicator.classList.remove('active');
+
+if (data.error) {
+addMessageToUI('assistant', `❌ Arama hatası: ${data.error}`);
+} else {
+let resultHTML = `<div class="search-result">
+<div class="search-result-title">🔍 "${data.query}" için arama sonuçları:</div>`;
+
+if (data.answer) {
+resultHTML += `<div class="search-result-item">
+<div class="search-result-item-title">🎯 AI Özeti:</div>
+<div class="search-result-item-content">${data.answer}</div>
+</div>`;
+}
+
+data.results.forEach((result, index) => {
+resultHTML += `<div class="search-result-item">
+<div class="search-result-item-title">${index + 1}. ${result.title}</div>
+<div class="search-result-item-url">${result.url}</div>
+<div class="search-result-item-content">${result.content}</div>
+</div>`;
+});
+
+resultHTML += `</div>`;
+
+const messageDiv = addMessageToUI('assistant', '');
+messageDiv.querySelector('.message-content').innerHTML = resultHTML;
+}
+
+} catch (error) {
+typingIndicator.classList.remove('active');
+console.error('Arama hatası:', error);
+addMessageToUI('assistant', `❌ Arama yapılamadı: ${error.message}`);
+}
+
+scrollToBottom();
+}
+
+// ============ CONVERSATION YÖNETİMİ ============
+
+async function loadConversations() {
+try {
+const response = await fetch('/api/conversations');
+const conversations = await response.json();
+
+const list = document.getElementById('conversationsList');
+list.innerHTML = '';
+
+conversations.forEach(conv => {
+const item = document.createElement('div');
+item.className = 'conversation-item';
+if (conv.id === currentConversationId) {
+item.classList.add('active');
+}
+
+const title = document.createElement('span');
+title.textContent = conv.title;
+
+const deleteBtn = document.createElement('button');
+deleteBtn.className = 'delete-btn';
+deleteBtn.textContent = '🗑️';
+deleteBtn.onclick = (e) => {
+e.stopPropagation();
+deleteConversation(conv.id);
+};
+
+item.appendChild(title);
+item.appendChild(deleteBtn);
+item.onclick = () => loadConversation(conv.id);
+
+list.appendChild(item);
+});
+} catch (error) {
+console.error('Konuşmalar yüklenemedi:', error);
+}
+}
+
+async function createNewConversation() {
+try {
+const response = await fetch('/api/conversations', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({title: 'Yeni Sohbet'})
+});
+const data = await response.json();
+currentConversationId = data.id;
+
+document.getElementById('messages').innerHTML = `
+<div class="message assistant">
+<div class="message-header">🤖 Nova</div>
+<div class="message-content">
+Merhaba! Ben Nova, senin gelişmiş yapay zeka asistanınım. 🚀<br><br>
+Nasıl yardımcı olabilirim?
+</div>
+</div>
+`;
+
+loadConversations();
+} catch (error) {
+console.error('Konuşma oluşturulamadı:', error);
+}
+}
+
+async function loadConversation(convId) {
+currentConversationId = convId;
+
+try {
+const response = await fetch(`/api/conversations/${convId}/messages`);
+const messages = await response.json();
+
+const messagesDiv = document.getElementById('messages');
+messagesDiv.innerHTML = '';
+
+messages.forEach(msg => {
+if (msg.role === 'user' || msg.role === 'assistant') {
+addMessageToUI(msg.role, msg.content);
+}
+});
+
+loadConversations();
+        scrollToBottom();
+    } catch (error) {
+        console.error('Mesajlar yüklenemedi:', error);
+    }
+}
+
+async function deleteConversation(convId) {
+    if (!confirm('Bu sohbeti silmek istediğinize emin misiniz?')) return;
+    
+    try {
+        const response = await fetch(`/api/conversations/${convId}`, {
+            method: 'DELETE'
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Silinen sohbet aktif sohbet miydi?
+            if (convId === currentConversationId) {
+                await createNewConversation();
+            } else {
+                await loadConversations();
+            }
+        } else {
+            alert('❌ Silme hatası!');
+        }
+    } catch (error) {
+        console.error('Konuşma silinemedi:', error);
+        alert('❌ Hata: ' + error.message);
+    }
+}
+
+// ============ CHAT FONKSİYONLARI ============
+
+async function sendMessage() {
+const input = document.getElementById('messageInput');
+const message = input.value.trim();
+
+if (!message || !currentConversationId) return;
+
+addMessageToUI('user', message);
+input.value = '';
+input.style.height = '50px';
+
+const sendBtn = document.getElementById('sendBtn');
+sendBtn.disabled = true;
+sendBtn.textContent = 'Gönderiliyor...';
+
+const typingIndicator = document.getElementById('typingIndicator');
+typingIndicator.classList.add('active');
+scrollToBottom();
+
+try {
+const response = await fetch('/api/chat', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({
+conversation_id: currentConversationId,
+message: message,
+provider: selectedProvider,
+model: selectedModel
+})
+});
+
+const reader = response.body.getReader();
+const decoder = new TextDecoder();
+let assistantMessage = '';
+let messageDiv = null;
+
+while (true) {
+const {done, value} = await reader.read();
+if (done) break;
+
+const chunk = decoder.decode(value);
+const lines = chunk.split('\n');
+
+for (const line of lines) {
+if (line.startsWith('data: ')) {
+const data = line.substring(6);
+
+if (data.startsWith('[ARTIFACT:')) {
+const artifactId = data.match(/\[ARTIFACT:(.*?)\]/)[1];
+
+const artifactResponse = await fetch(`/api/artifacts/${artifactId}`);
+const artifactData = await artifactResponse.json();
+
+if (!messageDiv) {
+typingIndicator.classList.remove('active');
+messageDiv = addMessageToUI('assistant', '');
+}
+
+if (window.artifactRenderer && typeof window.artifactRenderer.createArtifact === 'function') {
+await window.artifactRenderer.createArtifact(artifactData, messageDiv);
+} else {
+console.error('❌ Artifact renderer bulunamadı!');
+const codeBlock = `\`\`\`${artifactData.language}\n${artifactData.content}\n\`\`\``;
+updateMessageContent(messageDiv, codeBlock);
+}
+continue;
+}
+
+if (data === '[DONE]') {
+typingIndicator.classList.remove('active');
+break;
+}
+
+assistantMessage += data;
+
+if (!messageDiv) {
+typingIndicator.classList.remove('active');
+messageDiv = addMessageToUI('assistant', assistantMessage);
+} else {
+updateMessageContent(messageDiv, assistantMessage);
+}
+
+scrollToBottom();
+}
+}
+}
+
+} catch (error) {
+console.error('Mesaj gönderilemedi:', error);
+alert('Bir hata oluştu: ' + error.message);
+} finally {
+sendBtn.disabled = false;
+sendBtn.textContent = 'Gönder 🚀';
+typingIndicator.classList.remove('active');
+loadConversations();
+}
+}
+
+function addMessageToUI(role, content) {
+const messagesDiv = document.getElementById('messages');
+const messageDiv = document.createElement('div');
+messageDiv.className = `message ${role}`;
+
+const header = document.createElement('div');
+header.className = 'message-header';
+header.innerHTML = role === 'user' ? '👤 Sen' : '🤖 Nova';
+
+const contentDiv = document.createElement('div');
+contentDiv.className = 'message-content';
+
+if (role === 'assistant') {
+const html = marked.parse(content);
+contentDiv.innerHTML = html;
+
+contentDiv.querySelectorAll('pre code').forEach((block) => {
+hljs.highlightElement(block);
+});
+
+const ttsBtn = document.createElement('button');
+ttsBtn.className = 'tts-btn';
+ttsBtn.textContent = '🔊 Seslendir';
+ttsBtn.onclick = () => textToSpeech(content);
+header.appendChild(ttsBtn);
+} else {
+contentDiv.textContent = content;
+}
+
+messageDiv.appendChild(header);
+messageDiv.appendChild(contentDiv);
+messagesDiv.appendChild(messageDiv);
+
+scrollToBottom();
+return messageDiv;
+}
+
+function updateMessageContent(messageDiv, content) {
+const contentDiv = messageDiv.querySelector('.message-content');
+const html = marked.parse(content);
+contentDiv.innerHTML = html;
+
+contentDiv.querySelectorAll('pre code').forEach((block) => {
+hljs.highlightElement(block);
+});
+}
+
+function handleKeyPress(event) {
+if (event.key === 'Enter' && !event.shiftKey) {
+event.preventDefault();
+sendMessage();
+}
+}
+
+function scrollToBottom() {
+const messagesDiv = document.getElementById('messages');
+messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+document.getElementById('messageInput').addEventListener('input', function() {
+this.style.height = '50px';
+this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+});
+
+async function textToSpeech(text) {
+try {
+const response = await fetch('/api/tts', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({text: text})
+});
+
+const data = await response.json();
+const audio = new Audio(data.audio_url);
+audio.play();
+} catch (error) {
+console.error('TTS hatası:', error);
+alert('Ses oluşturulamadı');
+}
+}
+
+async function handleFileUpload(event) {
+const file = event.target.files[0];
+if (!file) return;
+
+const formData = new FormData();
+formData.append('file', file);
+
+try {
+const response = await fetch('/api/upload', {
+method: 'POST',
+body: formData
+});
+
+const data = await response.json();
+
+if (data.content) {
+const message = `📎 Dosya yüklendi: ${data.filename}\n\nİçerik:\n${data.content}`;
+document.getElementById('messageInput').value = message;
+}
+} catch (error) {
+console.error('Dosya yüklenemedi:', error);
+alert('Dosya yüklenemedi');
+}
+}
+async function deleteAllConversations() {
+    if (!confirm('⚠️ TÜM sohbetleri silmek istediğinize emin misiniz?')) return;
+    if (!confirm('🚨 SON UYARI! Devam etmek istiyor musunuz?')) return;
+    
+    try {
+        const response = await fetch('/api/conversations/delete-all', {method: 'DELETE'});
+        const data = await response.json();
+        
+        if (data.success) {
+            alert(`✅ ${data.deleted_count} sohbet silindi!`);
+            await createNewConversation();
+            await loadConversations();
+        }
+    } catch (error) {
+        alert('❌ Hata: ' + error.message);
+    }
+}
+</script> 
+<script src="{{ url_for('static', filename='nova_artifacts.js') }}"></script>
+</body>
+</html>

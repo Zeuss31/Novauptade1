@@ -1,0 +1,18 @@
+{
+  "id": "94255890",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'a {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0\n        print(f\"{rakip.ad}'ın canı: {rakip.can}\")\n\ndef oyun_sonu_kontrol(karakter1, karakter2):\n    if karakter1.can <= 0:\n        print(f\"{karakter2.ad} kazandı!\")\n        return True\n    elif karakter2.can <= 0:\n        print(f\"{karakter1.ad} kazandı!\")\n        return True\n    return False\n\n# Karakterleri oluştur\nkarakter1 = Karakter(\"Savaşçı\", 100, 20)\nkarakter2 = Karakter(\"Büyücü\", 80, 30)\n\n# Oyun döngüsü\nwhile True:\n    # Karakter 1 saldırır\n    karakter1.saldir(karakter2)\n    if oyun_sonu_kontrol(karakter1, karakter2):\n        break\n\n    # Karakter 2 saldırır\n    karakter2.saldir(karakter1)\n    if oyun_sonu_kontrol(karakter1, karakter2):\n        break",
+  "language": "python",
+  "conversation_id": 512,
+  "created_at": "2025-10-27T13:52:12.029158",
+  "updated_at": "2025-10-27T13:52:12.029158",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'a {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0\n        print(f\"{rakip.ad}'ın canı: {rakip.can}\")\n\ndef oyun_sonu_kontrol(karakter1, karakter2):\n    if karakter1.can <= 0:\n        print(f\"{karakter2.ad} kazandı!\")\n        return True\n    elif karakter2.can <= 0:\n        print(f\"{karakter1.ad} kazandı!\")\n        return True\n    return False\n\n# Karakterleri oluştur\nkarakter1 = Karakter(\"Savaşçı\", 100, 20)\nkarakter2 = Karakter(\"Büyücü\", 80, 30)\n\n# Oyun döngüsü\nwhile True:\n    # Karakter 1 saldırır\n    karakter1.saldir(karakter2)\n    if oyun_sonu_kontrol(karakter1, karakter2):\n        break\n\n    # Karakter 2 saldırır\n    karakter2.saldir(karakter1)\n    if oyun_sonu_kontrol(karakter1, karakter2):\n        break",
+      "timestamp": "2025-10-27T13:52:12.029158"
+    }
+  ]
+}

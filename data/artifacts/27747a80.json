@@ -1,0 +1,18 @@
+{
+  "id": "27747a80",
+  "type": "code",
+  "title": "Function: oyun_dongusu",
+  "content": "def oyun_dongusu(oyuncu1, oyuncu2):\n    while True:\n        # Oyuncu 1'in sırası\n        print(\"\\n\" + oyuncu1.isim + \"'in sırası:\")\n        secim = input(\"Saldır (s) veya Savun (v)? \").lower()\n        if secim == 's':\n            if oyuncu1.saldir(oyuncu2):\n                break  # Oyuncu 2 yenildi, döngüden çık\n        elif secim == 'v':\n            oyuncu1.savun()\n        else:\n            print(\"Geçersiz seçim!\")\n\n        oyuncu1.durum()\n        oyuncu2.durum()\n\n        # Oyuncu 2'nin sırası (benzer şekilde)\n        print(\"\\n\" + oyuncu2.isim + \"'in sırası:\")\n        secim = input(\"Saldır (s) veya Savun (v)? \").lower()\n        if secim == 's':\n            if oyuncu2.saldir(oyuncu1):\n                break  # Oyuncu 1 yenildi, döngüden çık\n        elif secim == 'v':\n            oyuncu2.savun()\n        else:\n            print(\"Geçersiz seçim!\")\n\n        oyuncu1.durum()\n        oyuncu2.durum()\n\n# Oyuncuları oluşturalım\noyuncu1 = Oyuncu(\"Ryu\")\noyuncu2 = Oyuncu(\"Ken\")\n\n# Oyunu başlatalım\noyun_dongusu(oyuncu1, oyuncu2)",
+  "language": "python",
+  "conversation_id": 132,
+  "created_at": "2025-10-09T20:25:34.149561",
+  "updated_at": "2025-10-09T20:25:34.149561",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "def oyun_dongusu(oyuncu1, oyuncu2):\n    while True:\n        # Oyuncu 1'in sırası\n        print(\"\\n\" + oyuncu1.isim + \"'in sırası:\")\n        secim = input(\"Saldır (s) veya Savun (v)? \").lower()\n        if secim == 's':\n            if oyuncu1.saldir(oyuncu2):\n                break  # Oyuncu 2 yenildi, döngüden çık\n        elif secim == 'v':\n            oyuncu1.savun()\n        else:\n            print(\"Geçersiz seçim!\")\n\n        oyuncu1.durum()\n        oyuncu2.durum()\n\n        # Oyuncu 2'nin sırası (benzer şekilde)\n        print(\"\\n\" + oyuncu2.isim + \"'in sırası:\")\n        secim = input(\"Saldır (s) veya Savun (v)? \").lower()\n        if secim == 's':\n            if oyuncu2.saldir(oyuncu1):\n                break  # Oyuncu 1 yenildi, döngüden çık\n        elif secim == 'v':\n            oyuncu2.savun()\n        else:\n            print(\"Geçersiz seçim!\")\n\n        oyuncu1.durum()\n        oyuncu2.durum()\n\n# Oyuncuları oluşturalım\noyuncu1 = Oyuncu(\"Ryu\")\noyuncu2 = Oyuncu(\"Ken\")\n\n# Oyunu başlatalım\noyun_dongusu(oyuncu1, oyuncu2)",
+      "timestamp": "2025-10-09T20:25:34.149561"
+    }
+  ]
+}

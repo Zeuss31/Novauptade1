@@ -1,0 +1,18 @@
+{
+  "id": "f3578e6f",
+  "type": "code",
+  "title": "Function: hesap_makinesi",
+  "content": "def hesap_makinesi():\n    \"\"\"\n    Basit bir komut satırı hesap makinesi.\n    \"\"\"\n    print(\"Hesap Makinesi\")\n    print(\"Yapılabilecek işlemler: toplama (+), çıkarma (-), çarpma (*), bölme (/)\")\n\n    try:\n        sayi1 = float(input(\"İlk sayıyı girin: \"))\n        sayi2 = float(input(\"İkinci sayıyı girin: \"))\n        islem = input(\"Yapmak istediğiniz işlemi girin (+, -, *, /): \")\n\n        if islem == '+':\n            sonuc = sayi1 + sayi2\n        elif islem == '-':\n            sonuc = sayi1 - sayi2\n        elif islem == '*':\n            sonuc = sayi1 * sayi2\n        elif islem == '/':\n            if sayi2 == 0:\n                print(\"Hata: Sıfıra bölme yapılamaz!\")\n                return  # Fonksiyonu sonlandır\n            sonuc = sayi1 / sayi2\n        else:\n            print(\"Hata: Geçersiz işlem!\")\n            return  # Fonksiyonu sonlandır\n\n        print(\"Sonuç:\", sonuc)\n\n    except ValueError:\n        print(\"Hata: Geçersiz sayı girişi!\")\n    except Exception as e:\n        print(\"Beklenmeyen bir hata oluştu:\", e)\n\n# Hesap makinesini çalıştır\nhesap_makinesi()",
+  "language": "python",
+  "conversation_id": 311,
+  "created_at": "2025-10-16T14:33:44.871689",
+  "updated_at": "2025-10-16T14:33:44.871689",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "def hesap_makinesi():\n    \"\"\"\n    Basit bir komut satırı hesap makinesi.\n    \"\"\"\n    print(\"Hesap Makinesi\")\n    print(\"Yapılabilecek işlemler: toplama (+), çıkarma (-), çarpma (*), bölme (/)\")\n\n    try:\n        sayi1 = float(input(\"İlk sayıyı girin: \"))\n        sayi2 = float(input(\"İkinci sayıyı girin: \"))\n        islem = input(\"Yapmak istediğiniz işlemi girin (+, -, *, /): \")\n\n        if islem == '+':\n            sonuc = sayi1 + sayi2\n        elif islem == '-':\n            sonuc = sayi1 - sayi2\n        elif islem == '*':\n            sonuc = sayi1 * sayi2\n        elif islem == '/':\n            if sayi2 == 0:\n                print(\"Hata: Sıfıra bölme yapılamaz!\")\n                return  # Fonksiyonu sonlandır\n            sonuc = sayi1 / sayi2\n        else:\n            print(\"Hata: Geçersiz işlem!\")\n            return  # Fonksiyonu sonlandır\n\n        print(\"Sonuç:\", sonuc)\n\n    except ValueError:\n        print(\"Hata: Geçersiz sayı girişi!\")\n    except Exception as e:\n        print(\"Beklenmeyen bir hata oluştu:\", e)\n\n# Hesap makinesini çalıştır\nhesap_makinesi()",
+      "timestamp": "2025-10-16T14:33:44.871689"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "95e88713",
+  "type": "markdown",
+  "title": "Function: __init__",
+  "content": "# Karakter sınıfı\nclass Karakter(pygame.sprite.Sprite):\n    def __init__(self, x, y, resim_yolu):\n        super().__init__()\n        self.image = pygame.image.load(resim_yolu)\n        self.rect = self.image.get_rect()\n        self.rect.x = x\n        self.rect.y = y\n        self.hiz = 5\n        self.can = 100\n\n    def update(self):\n        # Karakterin hareketlerini ve diğer güncellemelerini burada yapacağız\n        pass\n\n    def ciz(self, ekran):\n        ekran.blit(self.image, self.rect)\n\n# Karakterleri oluştur\noyuncu1 = Karakter(100, 400, \"oyuncu1.png\")\noyuncu2 = Karakter(600, 400, \"oyuncu2.png\")\n\n# Tüm sprite'ları gruplayalım\ntum_spriteler = pygame.sprite.Group()\ntum_spriteler.add(oyuncu1)\ntum_spriteler.add(oyuncu2)",
+  "language": "python",
+  "conversation_id": 145,
+  "created_at": "2025-10-09T20:51:21.132307",
+  "updated_at": "2025-10-09T20:51:21.132307",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "# Karakter sınıfı\nclass Karakter(pygame.sprite.Sprite):\n    def __init__(self, x, y, resim_yolu):\n        super().__init__()\n        self.image = pygame.image.load(resim_yolu)\n        self.rect = self.image.get_rect()\n        self.rect.x = x\n        self.rect.y = y\n        self.hiz = 5\n        self.can = 100\n\n    def update(self):\n        # Karakterin hareketlerini ve diğer güncellemelerini burada yapacağız\n        pass\n\n    def ciz(self, ekran):\n        ekran.blit(self.image, self.rect)\n\n# Karakterleri oluştur\noyuncu1 = Karakter(100, 400, \"oyuncu1.png\")\noyuncu2 = Karakter(600, 400, \"oyuncu2.png\")\n\n# Tüm sprite'ları gruplayalım\ntum_spriteler = pygame.sprite.Group()\ntum_spriteler.add(oyuncu1)\ntum_spriteler.add(oyuncu2)",
+      "timestamp": "2025-10-09T20:51:21.132307"
+    }
+  ]
+}

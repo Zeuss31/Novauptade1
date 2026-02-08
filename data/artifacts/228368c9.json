@@ -1,0 +1,18 @@
+{
+  "id": "228368c9",
+  "type": "code",
+  "title": "Sql Code",
+  "content": "CREATE TABLE users (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    username VARCHAR(255) UNIQUE NOT NULL,\n    email VARCHAR(255) UNIQUE NOT NULL,\n    password VARCHAR(255) NOT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n    is_active BOOLEAN DEFAULT TRUE\n);",
+  "language": "sql",
+  "conversation_id": 519,
+  "created_at": "2025-10-31T09:44:01.909133",
+  "updated_at": "2025-10-31T09:44:01.909133",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "CREATE TABLE users (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    username VARCHAR(255) UNIQUE NOT NULL,\n    email VARCHAR(255) UNIQUE NOT NULL,\n    password VARCHAR(255) NOT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n    is_active BOOLEAN DEFAULT TRUE\n);",
+      "timestamp": "2025-10-31T09:44:01.909133"
+    }
+  ]
+}

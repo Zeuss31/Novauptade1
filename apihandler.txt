@@ -1,0 +1,430 @@
+"""
+API İŞLEYİCİSİ
+Tüm AI provider'larla iletişimi burada yönetiyoruz
+Gemini API tam entegre edildi!
+Web Search (Tavily) eklendi! 🔍
+GEMINI SYSTEM PROMPT SORUNU DÜZELTİLDİ! ✅
+"""
+
+from config.settings import Settings
+import requests
+
+class MultiProviderAPIHandler:
+    """Çoklu AI provider'ı destekler"""
+    
+    def __init__(self, provider=None, model=None):
+        self.provider = provider or Settings.DEFAULT_PROVIDER
+        
+        # MODEL SEÇİMİ DÜZELTMESİ
+        if model is not None:
+            if isinstance(model, int) or (isinstance(model, str) and model.isdigit()):
+                try:
+                    model_index = int(model)
+                    available = Settings.AVAILABLE_MODELS.get(self.provider, [])
+                    if 0 <= model_index < len(available):
+                        model = available[model_index]
+                    else:
+                        model = None
+                except:
+                    model = None
+        
+        if not model:
+            model = Settings.DEFAULT_MODELS.get(self.provider)
+        
+        self.model = model
+        self.client = self._init_client()
+    
+    def _init_client(self):
+        """Provider'a göre client oluştur"""
+        if self.provider == "groq":
+            from groq import Groq
+            return Groq(api_key=Settings.GROQ_API_KEY)
+        
+        elif self.provider == "openai":
+            from openai import OpenAI
+            return OpenAI(api_key=Settings.OPENAI_API_KEY)
+        
+        elif self.provider == "deepinfra":
+            from openai import OpenAI
+            return OpenAI(
+                api_key=Settings.DEEPINFRA_API_KEY,
+                base_url="https://api.deepinfra.com/v1/openai"
+            )
+        
+        elif self.provider == "ollama":
+            from openai import OpenAI
+            return OpenAI(
+                api_key="ollama",
+                base_url=Settings.OLLAMA_BASE_URL
+            )
+        
+        elif self.provider == "anthropic":
+            from anthropic import Anthropic
+            return Anthropic(api_key=Settings.ANTHROPIC_API_KEY)
+        
+        elif self.provider == "google":
+            import google.generativeai as genai
+            genai.configure(api_key=Settings.GOOGLE_API_KEY)
+            return genai
+        
+        elif self.provider == "cohere":
+            import cohere
+            return cohere.Client(Settings.COHERE_API_KEY)
+        
+        else:
+            raise ValueError(f"Desteklenmeyen provider: {self.provider}")
+    
+    # ═══════════════════════════════════════════════════════════
+    # 🔍 WEB SEARCH - TAVILY API
+    # ═══════════════════════════════════════════════════════════
+    
+    @staticmethod
+    def web_search(query):
+        """Tavily API kullanarak web araması yapar"""
+        try:
+            if not Settings.TAVILY_API_KEY:
+                return {
+                    'success': False,
+                    'error': 'Tavily API key tanımlanmamış. .env dosyasına TAVILY_API_KEY ekleyin.'
+                }
+            
+            url = "https://api.tavily.com/search"
+            
+            payload = {
+                "api_key": Settings.TAVILY_API_KEY,
+                "query": query,
+                "search_depth": "basic",
+                "max_results": Settings.SEARCH_MAX_RESULTS,
+                "include_answer": True,
+                "include_raw_content": False,
+                "include_images": False
+            }
+            
+            response = requests.post(url, json=payload, timeout=10)
+            
+            if response.status_code != 200:
+                return {
+                    'success': False,
+                    'error': f'Tavily API hatası: {response.status_code}',
+                    'details': response.text
+                }
+            
+            data = response.json()
+            
+            results = {
+                'success': True,
+                'query': query,
+                'answer': data.get('answer', ''),
+                'results': []
+            }
+            
+            for item in data.get('results', []):
+                results['results'].append({
+                    'title': item.get('title', ''),
+                    'url': item.get('url', ''),
+                    'content': item.get('content', ''),
+                    'score': item.get('score', 0)
+                })
+            
+            return results
+            
+        except requests.exceptions.Timeout:
+            return {
+                'success': False,
+                'error': 'Arama zaman aşımına uğradı. Lütfen tekrar deneyin.'
+            }
+        except requests.exceptions.RequestException as e:
+            return {
+                'success': False,
+                'error': f'Bağlantı hatası: {str(e)}'
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Beklenmeyen hata: {str(e)}'
+            }
+    
+    # ═══════════════════════════════════════════════════════════
+    # NORMAL CHAT METODLARI
+    # ═══════════════════════════════════════════════════════════
+    
+    def get_response(self, messages):
+        try:
+            if self.provider in ["groq", "openai", "deepinfra", "ollama"]:
+                return self._get_openai_compatible_response(messages)
+            
+            elif self.provider == "anthropic":
+                return self._get_anthropic_response(messages)
+            
+            elif self.provider == "google":
+                return self._get_google_response(messages)
+            
+            elif self.provider == "cohere":
+                return self._get_cohere_response(messages)
+                
+        except Exception as e:
+            return f"❌ Hata ({self.provider}): {str(e)}"
+    
+    def get_streaming_response(self, messages):
+        try:
+            if self.provider in ["groq", "openai", "deepinfra", "ollama"]:
+                yield from self._get_openai_compatible_streaming(messages)
+            
+            elif self.provider == "anthropic":
+                yield from self._get_anthropic_streaming(messages)
+            
+            elif self.provider == "google":
+                yield from self._get_google_streaming(messages)
+            
+            elif self.provider == "cohere":
+                yield from self._get_cohere_streaming(messages)
+                
+        except Exception as e:
+            yield f"❌ Hata ({self.provider}): {str(e)}"
+    
+    # ═══════════════════════════════════════════════════════════
+    # GROQ & OPENAI & DEEPINFRA & OLLAMA (OpenAI API Uyumlu)
+    # ═══════════════════════════════════════════════════════════
+    
+    def _get_openai_compatible_response(self, messages):
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+            temperature=Settings.TEMPERATURE,
+            max_tokens=Settings.MAX_TOKENS,
+            top_p=Settings.TOP_P,
+            frequency_penalty=Settings.FREQUENCY_PENALTY,
+            presence_penalty=Settings.PRESENCE_PENALTY,
+        )
+        return response.choices[0].message.content
+    
+    def _get_openai_compatible_streaming(self, messages):
+        stream = self.client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+            temperature=Settings.TEMPERATURE,
+            max_tokens=Settings.MAX_TOKENS,
+            top_p=Settings.TOP_P,
+            frequency_penalty=Settings.FREQUENCY_PENALTY,
+            presence_penalty=Settings.PRESENCE_PENALTY,
+            stream=True,
+        )
+        
+        for chunk in stream:
+            if chunk.choices[0].delta.content:
+                yield chunk.choices[0].delta.content
+    
+    # ═══════════════════════════════════════════════════════════
+    # ANTHROPIC (Claude)
+    # ═══════════════════════════════════════════════════════════
+    
+    def _get_anthropic_response(self, messages):
+        system_msg = ""
+        user_messages = []
+        
+        for msg in messages:
+            if msg["role"] == "system":
+                system_msg = msg["content"]
+            else:
+                user_messages.append(msg)
+        
+        response = self.client.messages.create(
+            model=self.model,
+            max_tokens=Settings.MAX_TOKENS,
+            temperature=Settings.TEMPERATURE,
+            system=system_msg,
+            messages=user_messages
+        )
+        return response.content[0].text
+    
+    def _get_anthropic_streaming(self, messages):
+        system_msg = ""
+        user_messages = []
+        
+        for msg in messages:
+            if msg["role"] == "system":
+                system_msg = msg["content"]
+            else:
+                user_messages.append(msg)
+        
+        with self.client.messages.stream(
+            model=self.model,
+            max_tokens=Settings.MAX_TOKENS,
+            temperature=Settings.TEMPERATURE,
+            system=system_msg,
+            messages=user_messages
+        ) as stream:
+            for text in stream.text_stream:
+                yield text
+    
+    # ═══════════════════════════════════════════════════════════
+    # GOOGLE (Gemini) - SYSTEM PROMPT SORUNU DÜZELTİLDİ! ✅
+    # ═══════════════════════════════════════════════════════════
+    
+    def _get_google_response(self, messages):
+        """Gemini API - Normal yanıt"""
+        try:
+            # System instruction'ı ayır
+            system_instruction = None
+            for msg in messages:
+                if msg["role"] == "system":
+                    system_instruction = msg["content"]
+                    break
+            
+            # Model oluştur (system_instruction parametresi ile)
+            model = self.client.GenerativeModel(
+                model_name=self.model,
+                generation_config={
+                    "temperature": Settings.TEMPERATURE,
+                    "top_p": Settings.TOP_P,
+                    "max_output_tokens": Settings.MAX_TOKENS,
+                },
+                system_instruction=system_instruction  # ✅ BURASI ÖNEMLİ!
+            )
+            
+            # Mesajları dönüştür (system instruction OLMADAN)
+            chat_history, current_prompt = self._convert_messages_for_gemini(messages)
+            
+            # Chat başlat
+            if chat_history:
+                chat = model.start_chat(history=chat_history)
+                response = chat.send_message(current_prompt)
+            else:
+                response = model.generate_content(current_prompt)
+            
+            return response.text
+            
+        except Exception as e:
+            return f"❌ Gemini Hatası: {str(e)}"
+    
+    def _get_google_streaming(self, messages):
+        """Gemini API - Streaming yanıt"""
+        try:
+            # System instruction'ı ayır
+            system_instruction = None
+            for msg in messages:
+                if msg["role"] == "system":
+                    system_instruction = msg["content"]
+                    break
+            
+            # Model oluştur (system_instruction parametresi ile)
+            model = self.client.GenerativeModel(
+                model_name=self.model,
+                generation_config={
+                    "temperature": Settings.TEMPERATURE,
+                    "top_p": Settings.TOP_P,
+                    "max_output_tokens": Settings.MAX_TOKENS,
+                },
+                system_instruction=system_instruction  # ✅ BURASI ÖNEMLİ!
+            )
+            
+            # Mesajları dönüştür (system instruction OLMADAN)
+            chat_history, current_prompt = self._convert_messages_for_gemini(messages)
+            
+            # Chat başlat ve stream
+            if chat_history:
+                chat = model.start_chat(history=chat_history)
+                response = chat.send_message(current_prompt, stream=True)
+            else:
+                response = model.generate_content(current_prompt, stream=True)
+            
+            # Stream yanıtı
+            for chunk in response:
+                if chunk.text:
+                    yield chunk.text
+                    
+        except Exception as e:
+            yield f"❌ Gemini Hatası: {str(e)}"
+    
+    def _convert_messages_for_gemini(self, messages):
+        """
+        OpenAI formatındaki mesajları Gemini formatına çevir
+        ✅ DÜZELTİLDİ: System instruction artık prompt'a eklenmiyor!
+        """
+        
+        chat_history = []
+        current_prompt = ""
+        
+        for i, msg in enumerate(messages):
+            role = msg.get("role", "")
+            content = msg.get("content", "")
+            
+            # System mesajını ATLA (zaten model parametresine eklendi)
+            if role == "system":
+                continue
+            
+            # Son mesaj kullanıcıdan ise, current_prompt olarak sakla
+            if i == len(messages) - 1 and role == "user":
+                current_prompt = content  # ✅ SADECE USER MESAJI!
+            else:
+                # Geçmiş mesajları ekle
+                if role == "user":
+                    chat_history.append({
+                        "role": "user",
+                        "parts": [content]
+                    })
+                elif role == "assistant":
+                    chat_history.append({
+                        "role": "model",
+                        "parts": [content]
+                    })
+        
+        # Eğer current_prompt boşsa (son mesaj assistant ise)
+        if not current_prompt and messages:
+            for msg in reversed(messages):
+                if msg.get("role") == "user":
+                    current_prompt = msg.get("content", "")
+                    break
+        
+        return chat_history, current_prompt
+    
+    # ═══════════════════════════════════════════════════════════
+    # COHERE
+    # ═══════════════════════════════════════════════════════════
+    
+    def _get_cohere_response(self, messages):
+        prompt = messages[-1]["content"] if messages else ""
+        
+        chat_history = []
+        for i, msg in enumerate(messages[:-1]):
+            if msg["role"] == "system":
+                continue
+            chat_history.append({
+                "role": "USER" if msg["role"] == "user" else "CHATBOT",
+                "message": msg["content"]
+            })
+        
+        response = self.client.chat(
+            model=self.model,
+            message=prompt,
+            chat_history=chat_history,
+            temperature=Settings.TEMPERATURE,
+        )
+        return response.text
+    
+    def _get_cohere_streaming(self, messages):
+        prompt = messages[-1]["content"] if messages else ""
+        
+        chat_history = []
+        for msg in messages[:-1]:
+            if msg["role"] == "system":
+                continue
+            chat_history.append({
+                "role": "USER" if msg["role"] == "user" else "CHATBOT",
+                "message": msg["content"]
+            })
+        
+        response = self.client.chat_stream(
+            model=self.model,
+            message=prompt,
+            chat_history=chat_history,
+            temperature=Settings.TEMPERATURE,
+        )
+        
+        for event in response:
+            if event.event_type == "text-generation":
+                yield event.text
+
+
+# Eski sınıf adı ile uyumluluk için
+GroqAPIHandler = MultiProviderAPIHandler

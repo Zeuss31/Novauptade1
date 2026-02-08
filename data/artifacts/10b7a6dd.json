@@ -1,0 +1,18 @@
+{
+  "id": "10b7a6dd",
+  "type": "code",
+  "title": "Function: dovus_oyunu",
+  "content": "import random\n\ndef dovus_oyunu():\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1_can = 100\n    oyuncu2_can = 100\n\n    print(f\"\\n{oyuncu1_adi}: {oyuncu1_can} can ile başladı.\")\n    print(f\"{oyuncu2_adi}: {oyuncu2_can} can ile başladı.\\n\")\n\n    while oyuncu1_can > 0 and oyuncu2_can > 0:\n        # 1. Oyuncunun saldırısı\n        oyuncu1_saldiri_gucu = random.randint(10, 20) # 10 ile 20 arası rastgele bir saldırı gücü\n        oyuncu2_can -= oyuncu1_saldiri_gucu # Oyuncu 2'nin canından saldırı gücünü çıkar\n        print(f\"{oyuncu1_adi}, {oyuncu2_adi}'ye {oyuncu1_saldiri_gucu} vurdu! Kalan can: {oyuncu2_can}\")\n\n        if oyuncu2_can <= 0:\n            print(f\"{oyuncu1_adi} kazandı!\")\n            break\n\n        # 2. Oyuncunun saldırısı\n        oyuncu2_saldiri_gucu = random.randint(10, 20)\n        oyuncu1_can -= oyuncu2_saldiri_gucu\n        print(f\"{oyuncu2_adi}, {oyuncu1_adi}'ye {oyuncu2_saldiri_gucu} vurdu! Kalan can: {oyuncu1_can}\")\n\n        if oyuncu1_can <= 0:\n            print(f\"{oyuncu2_adi} kazandı!\")\n            break\n\n        print(\"-\" * 30) # Ayraç\n\n    print(\"Oyun bitti!\")\n\n# Oyunu başlat\ndovus_oyunu()",
+  "language": "python",
+  "conversation_id": 396,
+  "created_at": "2025-10-19T01:44:30.382084",
+  "updated_at": "2025-10-19T01:44:30.382084",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\ndef dovus_oyunu():\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1_can = 100\n    oyuncu2_can = 100\n\n    print(f\"\\n{oyuncu1_adi}: {oyuncu1_can} can ile başladı.\")\n    print(f\"{oyuncu2_adi}: {oyuncu2_can} can ile başladı.\\n\")\n\n    while oyuncu1_can > 0 and oyuncu2_can > 0:\n        # 1. Oyuncunun saldırısı\n        oyuncu1_saldiri_gucu = random.randint(10, 20) # 10 ile 20 arası rastgele bir saldırı gücü\n        oyuncu2_can -= oyuncu1_saldiri_gucu # Oyuncu 2'nin canından saldırı gücünü çıkar\n        print(f\"{oyuncu1_adi}, {oyuncu2_adi}'ye {oyuncu1_saldiri_gucu} vurdu! Kalan can: {oyuncu2_can}\")\n\n        if oyuncu2_can <= 0:\n            print(f\"{oyuncu1_adi} kazandı!\")\n            break\n\n        # 2. Oyuncunun saldırısı\n        oyuncu2_saldiri_gucu = random.randint(10, 20)\n        oyuncu1_can -= oyuncu2_saldiri_gucu\n        print(f\"{oyuncu2_adi}, {oyuncu1_adi}'ye {oyuncu2_saldiri_gucu} vurdu! Kalan can: {oyuncu1_can}\")\n\n        if oyuncu1_can <= 0:\n            print(f\"{oyuncu2_adi} kazandı!\")\n            break\n\n        print(\"-\" * 30) # Ayraç\n\n    print(\"Oyun bitti!\")\n\n# Oyunu başlat\ndovus_oyunu()",
+      "timestamp": "2025-10-19T01:44:30.382084"
+    }
+  ]
+}

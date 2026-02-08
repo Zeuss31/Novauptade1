@@ -1,0 +1,18 @@
+{
+  "id": "993fc318",
+  "type": "code",
+  "title": "Function: sayi_tahmin_oyunu",
+  "content": "import random\n\ndef sayi_tahmin_oyunu():\n    \"\"\"Sayı Tahmin Oyunu'nun ana fonksiyonu.\"\"\"\n\n    rastgele_sayi = random.randint(1, 100) # 1 ile 100 arasında rastgele bir sayı tut\n    tahmin_sayisi = 0 # Kaç kere tahmin ettiğimizi saymak için\n\n    print(\"Sayı Tahmin Oyununa Hoş Geldin!\")\n    print(\"1 ile 100 arasında bir sayı tuttum. Bakalım tahmin edebilecek misin?\")\n\n    while True: # Sonsuz döngü (doğru tahmin yapana kadar devam edecek)\n        try:\n            tahmin = int(input(\"Tahminini gir: \")) # Kullanıcıdan tahmin al\n            tahmin_sayisi += 1 # Tahmin sayısını 1 artır\n        except ValueError:\n            print(\"Geçersiz giriş. Lütfen bir sayı gir.\")\n            continue # Döngünün başına dön\n\n        if tahmin < rastgele_sayi:\n            print(\"Daha yüksek bir sayı tahmin et.\")\n        elif tahmin > rastgele_sayi:\n            print(\"Daha düşük bir sayı tahmin et.\")\n        else:\n            print(f\"Tebrikler! {rastgele_sayi} sayısını {tahmin_sayisi} tahminde buldun.\")\n            break # Döngüyü sonlandır\n\nif __name__ == \"__main__\":\n    sayi_tahmin_oyunu() # Oyunu başlat",
+  "language": "python",
+  "conversation_id": 150,
+  "created_at": "2025-10-10T10:37:19.706455",
+  "updated_at": "2025-10-10T10:37:19.706455",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\ndef sayi_tahmin_oyunu():\n    \"\"\"Sayı Tahmin Oyunu'nun ana fonksiyonu.\"\"\"\n\n    rastgele_sayi = random.randint(1, 100) # 1 ile 100 arasında rastgele bir sayı tut\n    tahmin_sayisi = 0 # Kaç kere tahmin ettiğimizi saymak için\n\n    print(\"Sayı Tahmin Oyununa Hoş Geldin!\")\n    print(\"1 ile 100 arasında bir sayı tuttum. Bakalım tahmin edebilecek misin?\")\n\n    while True: # Sonsuz döngü (doğru tahmin yapana kadar devam edecek)\n        try:\n            tahmin = int(input(\"Tahminini gir: \")) # Kullanıcıdan tahmin al\n            tahmin_sayisi += 1 # Tahmin sayısını 1 artır\n        except ValueError:\n            print(\"Geçersiz giriş. Lütfen bir sayı gir.\")\n            continue # Döngünün başına dön\n\n        if tahmin < rastgele_sayi:\n            print(\"Daha yüksek bir sayı tahmin et.\")\n        elif tahmin > rastgele_sayi:\n            print(\"Daha düşük bir sayı tahmin et.\")\n        else:\n            print(f\"Tebrikler! {rastgele_sayi} sayısını {tahmin_sayisi} tahminde buldun.\")\n            break # Döngüyü sonlandır\n\nif __name__ == \"__main__\":\n    sayi_tahmin_oyunu() # Oyunu başlat",
+      "timestamp": "2025-10-10T10:37:19.706455"
+    }
+  ]
+}

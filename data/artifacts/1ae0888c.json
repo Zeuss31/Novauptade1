@@ -1,0 +1,18 @@
+{
+  "id": "1ae0888c",
+  "type": "code",
+  "title": "Function: tahmin_oyunu",
+  "content": "import random\n\ndef tahmin_oyunu():\n  print(\"Merhaba! Sayı Tahmin Oyununa hoş geldiniz!\")\n  zorluk_seviyesi = input(\"Zorluk seviyesi seçin (Kolay/Orta/Zor): \").lower()\n  \n  if zorluk_seviyesi == \"kolay\":\n    sayi_araligi = range(1, 51)\n  elif zorluk_seviyesi == \"orta\":\n    sayi_araligi = range(51, 101)\n  elif zorluk_seviyesi == \"zor\":\n    sayi_araligi = range(1, 101)\n  else:\n    print(\"Geçersiz zorluk seviyesi. Kolay seçeneği varsayıyorum.\")\n    sayi_araligi = range(1, 51)\n\n  sayi = random.choice(sayi_araligi)\n  tahmin_sayisi = 0\n  hak_sayisi = 7\n  skor = 0\n\n  print(f\"0 ile {sayi_araligi[-1]} arasında bir sayı düşündüm. Tahmin etmeye başla!\")\n\n  while hak_sayisi > 0:\n    try:\n      tahmin_sayisi = int(input(\"Tahmininiz: \"))\n    except ValueError:\n      print(\"Lütfen bir sayı girin.\")\n      continue\n\n    if tahmin_sayisi < sayi:\n      print(\"Daha büyük bir sayı!\")\n    elif tahmin_sayısı > sayi:\n      print(\"Daha küçük bir sayı!\")\n    else:\n      print(f\"Tebrikler! {sayi} sayısını {7 - hak_sayısı} hakkta buldunuz!\")\n      skor = 7 - hak_sayısı\n      break\n\n    hak_sayisi -= 1\n    print(f\"Kalan haklarınız: {hak_sayısı}\")\n\n  if hak_sayısı == 0:\n    print(f\"Üzgünüm, {sayi} sayısını bulamadınız.\")\n\n  print(f\"Toplam tahmin sayısı: {7 - hak_sayısı}\")\n  print(f\"Skorunuz: {skor}\")\n\n  tekrar_oyna = input(\"Tekrar oynamak ister misiniz? (evet/hayır): \").lower()\n  if tekrar_oyna == \"evet\":\n    tahmin_oyunu()\n\ntahmin_oyunu()",
+  "language": "python",
+  "conversation_id": 64,
+  "created_at": "2025-10-05T23:04:34.026363",
+  "updated_at": "2025-10-05T23:04:34.026363",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\ndef tahmin_oyunu():\n  print(\"Merhaba! Sayı Tahmin Oyununa hoş geldiniz!\")\n  zorluk_seviyesi = input(\"Zorluk seviyesi seçin (Kolay/Orta/Zor): \").lower()\n  \n  if zorluk_seviyesi == \"kolay\":\n    sayi_araligi = range(1, 51)\n  elif zorluk_seviyesi == \"orta\":\n    sayi_araligi = range(51, 101)\n  elif zorluk_seviyesi == \"zor\":\n    sayi_araligi = range(1, 101)\n  else:\n    print(\"Geçersiz zorluk seviyesi. Kolay seçeneği varsayıyorum.\")\n    sayi_araligi = range(1, 51)\n\n  sayi = random.choice(sayi_araligi)\n  tahmin_sayisi = 0\n  hak_sayisi = 7\n  skor = 0\n\n  print(f\"0 ile {sayi_araligi[-1]} arasında bir sayı düşündüm. Tahmin etmeye başla!\")\n\n  while hak_sayisi > 0:\n    try:\n      tahmin_sayisi = int(input(\"Tahmininiz: \"))\n    except ValueError:\n      print(\"Lütfen bir sayı girin.\")\n      continue\n\n    if tahmin_sayisi < sayi:\n      print(\"Daha büyük bir sayı!\")\n    elif tahmin_sayısı > sayi:\n      print(\"Daha küçük bir sayı!\")\n    else:\n      print(f\"Tebrikler! {sayi} sayısını {7 - hak_sayısı} hakkta buldunuz!\")\n      skor = 7 - hak_sayısı\n      break\n\n    hak_sayisi -= 1\n    print(f\"Kalan haklarınız: {hak_sayısı}\")\n\n  if hak_sayısı == 0:\n    print(f\"Üzgünüm, {sayi} sayısını bulamadınız.\")\n\n  print(f\"Toplam tahmin sayısı: {7 - hak_sayısı}\")\n  print(f\"Skorunuz: {skor}\")\n\n  tekrar_oyna = input(\"Tekrar oynamak ister misiniz? (evet/hayır): \").lower()\n  if tekrar_oyna == \"evet\":\n    tahmin_oyunu()\n\ntahmin_oyunu()",
+      "timestamp": "2025-10-05T23:04:34.026363"
+    }
+  ]
+}

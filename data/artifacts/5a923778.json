@@ -1,0 +1,18 @@
+{
+  "id": "5a923778",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'a {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0\n        print(f\"{rakip.ad}'ın canı: {rakip.can}\")\n\ndef oyun_sonu_kontrol(karakter1, karakter2):\n    if karakter1.can <= 0:\n        print(f\"{karakter2.ad} kazandı!\")\n        return True\n    elif karakter2.can <= 0:\n        print(f\"{karakter1.ad} kazandı!\")\n        return True\n    return False\n\n# Karakterleri oluştur\nkarakter1 = Karakter(\"Savaşçı\", 100, 20)\nkarakter2 = Karakter(\"Büyücü\", 80, 30)\n\n# Oyuncunun karakter seçimi\nprint(\"Karakterinizi seçin:\")\nprint(\"1. Savaşçı\")\nprint(\"2. Büyücü\")\nsecim = input(\"Seçiminiz (1 veya 2): \")\n\nif secim == \"1\":\n    oyuncu = karakter1\n    bilgisayar = karakter2\nelif secim == \"2\":\n    oyuncu = karakter2\n    bilgisayar = karakter1\nelse:\n    print(\"Geçersiz seçim. Savaşçı seçildi.\")\n    oyuncu = karakter1\n    bilgisayar = karakter2\n\n# Oyun döngüsü\nwhile True:\n    # Oyuncunun saldırısı\n    input(\"Saldırmak için Enter'a basın...\")\n    oyuncu.saldir(bilgisayar)\n    if oyun_sonu_kontrol(oyuncu, bilgisayar):\n        break\n\n    # Bilgisayarın saldırısı\n    print(\"Bilgisayar saldırıyor...\")\n    bilgisayar.saldir(oyuncu)\n    if oyun_sonu_kontrol(oyuncu, bilgisayar):\n        break",
+  "language": "python",
+  "conversation_id": 512,
+  "created_at": "2025-10-27T13:52:12.039244",
+  "updated_at": "2025-10-27T13:52:12.039244",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'a {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0\n        print(f\"{rakip.ad}'ın canı: {rakip.can}\")\n\ndef oyun_sonu_kontrol(karakter1, karakter2):\n    if karakter1.can <= 0:\n        print(f\"{karakter2.ad} kazandı!\")\n        return True\n    elif karakter2.can <= 0:\n        print(f\"{karakter1.ad} kazandı!\")\n        return True\n    return False\n\n# Karakterleri oluştur\nkarakter1 = Karakter(\"Savaşçı\", 100, 20)\nkarakter2 = Karakter(\"Büyücü\", 80, 30)\n\n# Oyuncunun karakter seçimi\nprint(\"Karakterinizi seçin:\")\nprint(\"1. Savaşçı\")\nprint(\"2. Büyücü\")\nsecim = input(\"Seçiminiz (1 veya 2): \")\n\nif secim == \"1\":\n    oyuncu = karakter1\n    bilgisayar = karakter2\nelif secim == \"2\":\n    oyuncu = karakter2\n    bilgisayar = karakter1\nelse:\n    print(\"Geçersiz seçim. Savaşçı seçildi.\")\n    oyuncu = karakter1\n    bilgisayar = karakter2\n\n# Oyun döngüsü\nwhile True:\n    # Oyuncunun saldırısı\n    input(\"Saldırmak için Enter'a basın...\")\n    oyuncu.saldir(bilgisayar)\n    if oyun_sonu_kontrol(oyuncu, bilgisayar):\n        break\n\n    # Bilgisayarın saldırısı\n    print(\"Bilgisayar saldırıyor...\")\n    bilgisayar.saldir(oyuncu)\n    if oyun_sonu_kontrol(oyuncu, bilgisayar):\n        break",
+      "timestamp": "2025-10-27T13:52:12.039244"
+    }
+  ]
+}

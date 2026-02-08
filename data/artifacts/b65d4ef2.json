@@ -1,0 +1,18 @@
+{
+  "id": "b65d4ef2",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'e {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0  # Canın negatif olmasını engelle\n        print(f\"{rakip.ad}'in canı: {rakip.can}\")\n\n    def hayatta_mi(self):\n        return self.can > 0",
+  "language": "python",
+  "conversation_id": 333,
+  "created_at": "2025-10-17T02:22:40.481159",
+  "updated_at": "2025-10-17T02:22:40.481159",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'e {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0  # Canın negatif olmasını engelle\n        print(f\"{rakip.ad}'in canı: {rakip.can}\")\n\n    def hayatta_mi(self):\n        return self.can > 0",
+      "timestamp": "2025-10-17T02:22:40.481159"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "814e615e",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, isim, can=100, guc=10):\n        self.isim = isim\n        self.can = can\n        self.guc = guc\n\n    def saldir(self, rakip):\n        vurus = random.randint(0, self.guc)\n        rakip.can -= vurus\n        print(f\"{self.isim} {rakip.isim}'e {vurus} hasar verdi!\")\n        if rakip.can <= 0:\n            print(f\"{rakip.isim} yenildi!\")\n        return rakip.can <= 0\n\ndef karakter_sec():\n    isim = input(\"Karakterinizin adını girin: \")\n    return Karakter(isim)\n\n# Oyuncu karakterini oluştur\noyuncu1 = karakter_sec()\noyuncu2 = Karakter(\"Bilgisayar\", 80, 12) # Bilgisayar karakteri\n\n# Oyun döngüsü\nwhile True:\n    print(f\"{oyuncu1.isim}: Can = {oyuncu1.can}, {oyuncu2.isim}: Can = {oyuncu2.can}\")\n\n    # Oyuncu 1'in saldırısı\n    if oyuncu1.saldir(oyuncu2):\n        break\n\n    # Oyuncu 2'nin saldırısı (Bilgisayar)\n    if oyuncu2.saldir(oyuncu1):\n        break",
+  "language": "python",
+  "conversation_id": 340,
+  "created_at": "2025-10-17T02:33:41.661861",
+  "updated_at": "2025-10-17T02:33:41.661861",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, isim, can=100, guc=10):\n        self.isim = isim\n        self.can = can\n        self.guc = guc\n\n    def saldir(self, rakip):\n        vurus = random.randint(0, self.guc)\n        rakip.can -= vurus\n        print(f\"{self.isim} {rakip.isim}'e {vurus} hasar verdi!\")\n        if rakip.can <= 0:\n            print(f\"{rakip.isim} yenildi!\")\n        return rakip.can <= 0\n\ndef karakter_sec():\n    isim = input(\"Karakterinizin adını girin: \")\n    return Karakter(isim)\n\n# Oyuncu karakterini oluştur\noyuncu1 = karakter_sec()\noyuncu2 = Karakter(\"Bilgisayar\", 80, 12) # Bilgisayar karakteri\n\n# Oyun döngüsü\nwhile True:\n    print(f\"{oyuncu1.isim}: Can = {oyuncu1.can}, {oyuncu2.isim}: Can = {oyuncu2.can}\")\n\n    # Oyuncu 1'in saldırısı\n    if oyuncu1.saldir(oyuncu2):\n        break\n\n    # Oyuncu 2'nin saldırısı (Bilgisayar)\n    if oyuncu2.saldir(oyuncu1):\n        break",
+      "timestamp": "2025-10-17T02:33:41.661861"
+    }
+  ]
+}

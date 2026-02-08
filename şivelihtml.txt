@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova AI - Gelişmiş Yapay Zeka Asistan</title>
+    
+    <!-- Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    
+    <!-- Markdown Parser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.0/marked.min.js"></script>
+    
+    <!-- Artifact CSS & JS -->
+    <link rel="stylesheet" href="/static/css/artifacts.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ============ TEMA DEĞİŞKENLERİ ============ */
+        
+        [data-theme="dark"] {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #00ff88;
+            --accent-hover: #00cc6a;
+            --border: #333;
+            --search-color: #3b82f6;
+            --gradient-1: #00ff88;
+            --gradient-2: #00cc6a;
+        }
+
+        [data-theme="neon"] {
+            --bg-primary: #0a0012;
+            --bg-secondary: #1a0028;
+            --bg-tertiary: #2d0047;
+            --text-primary: #ffffff;
+            --text-secondary: #b794f6;
+            --accent: #a855f7;
+            --accent-hover: #9333ea;
+            --border: #4c1d95;
+            --search-color: #c084fc;
+            --gradient-1: #a855f7;
+            --gradient-2: #ec4899;
+        }
+
+        [data-theme="matrix"] {
+            --bg-primary: #000000;
+            --bg-secondary: #001a00;
+            --bg-tertiary: #003300;
+            --text-primary: #00ff00;
+            --text-secondary: #008800;
+            --accent: #00ff00;
+            --accent-hover: #00cc00;
+            --border: #004400;
+            --search-color: #00ff00;
+            --gradient-1: #00ff00;
+            --gradient-2: #00aa00;
+        }
+
+        [data-theme="ocean"] {
+            --bg-primary: #001020;
+            --bg-secondary: #002040;
+            --bg-tertiary: #003060;
+            --text-primary: #e0f2ff;
+            --text-secondary: #7dd3fc;
+            --accent: #06b6d4;
+            --accent-hover: #0891b2;
+            --border: #075985;
+            --search-color: #38bdf8;
+            --gradient-1: #06b6d4;
+            --gradient-2: #3b82f6;
+        }
+
+        [data-theme="sunset"] {
+            --bg-primary: #1a0f0a;
+            --bg-secondary: #2d1810;
+            --bg-tertiary: #442418;
+            --text-primary: #fef3c7;
+            --text-secondary: #fbbf24;
+            --accent: #f59e0b;
+            --accent-hover: #d97706;
+            --border: #92400e;
+            --search-color: #fb923c;
+            --gradient-1: #f59e0b;
+            --gradient-2: #ef4444;
+        }
+
+        [data-theme="cyber"] {
+            --bg-primary: #0d0014;
+            --bg-secondary: #1a0028;
+            --bg-tertiary: #2d0047;
+            --text-primary: #fce7f3;
+            --text-secondary: #f9a8d4;
+            --accent: #ec4899;
+            --accent-hover: #db2777;
+            --border: #831843;
+            --search-color: #f472b6;
+            --gradient-1: #ec4899;
+            --gradient-2: #8b5cf6;
+        }
+
+        [data-theme="aurora"] {
+            --bg-primary: #0a1628;
+            --bg-secondary: #112240;
+            --bg-tertiary: #1a365d;
+            --text-primary: #e0f2fe;
+            --text-secondary: #7dd3fc;
+            --accent: #22d3ee;
+            --accent-hover: #06b6d4;
+            --border: #0e7490;
+            --search-color: #67e8f9;
+            --gradient-1: #22d3ee;
+            --gradient-2: #a855f7;
+        }
+
+        [data-theme="wine"] {
+            --bg-primary: #1a0505;
+            --bg-secondary: #2d0a0a;
+            --bg-tertiary: #4a0f0f;
+            --text-primary: #ffe4e1;
+            --text-secondary: #ff6b7a;
+            --accent: #dc143c;
+            --accent-hover: #b01030;
+            --border: #5c0a0a;
+            --search-color: #ff4d6d;
+            --gradient-1: #dc143c;
+            --gradient-2: #8b0000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--gradient-1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--gradient-2) 0%, transparent 50%);
+            opacity: 0.03;
+            animation: bgPulse 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.03; transform: scale(1); }
+            50% { opacity: 0.06; transform: scale(1.1); }
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 28px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px var(--accent);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .theme-menu {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9998;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .theme-menu.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .theme-btn {
+            padding: 12px 20px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .theme-btn.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .logo::before {
+            content: "🤖";
+            font-size: 32px;
+            -webkit-text-fill-color: initial;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .model-selector {
+            margin: 15px 0;
+        }
+
+        .model-selector select {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .model-selector select:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .model-selector select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .model-info {
+            font-size: 11px;
+            color: var(--text-secondary);
+            padding: 5px;
+            text-align: center;
+        }
+
+        .dialect-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 5px;
+            display: block;
+            font-weight: bold;
+        }
+
+        .new-chat-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .new-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent);
+        }
+
+        .conversations-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .conversation-item {
+            padding: 12px;
+            margin: 5px 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid transparent;
+        }
+
+        .conversation-item:hover {
+            background: var(--border);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .conversation-item.active {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #ff0000;
+            transform: scale(1.1);
+        }
+
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+            transition: all 0.5s;
+            position: relative;
+        }
+
+        .chat-header h2 {
+            font-size: 20px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 80%;
+            animation: messageSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .message:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: var(--bg-primary);
+            margin-left: auto;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .message.assistant {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            max-width: 100%;
+        }
+
+        .message-header {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .message-content {
+            line-height: 1.6;
+        }
+
+        .message-content pre {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border-left: 3px solid var(--accent);
+        }
+
+        .message-content code {
+            background: #1e1e1e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tts-btn {
+            background: var(--accent);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: auto;
+            transition: all 0.3s;
+        }
+
+        .tts-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .search-result {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--search-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px var(--search-color); }
+            50% { box-shadow: 0 0 20px var(--search-color); }
+        }
+
+        .search-result-title {
+            color: var(--search-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .search-result-item {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 3px solid var(--search-color);
+            transition: all 0.3s;
+        }
+
+        .search-result-item:hover {
+            transform: translateX(5px);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .search-result-item-title {
+            font-weight: 600;
+            color: var(--search-color);
+            margin-bottom: 5px;
+        }
+
+        .search-result-item-url {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .search-result-item-content {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .input-area {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+            transition: all 0.5s;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            resize: none;
+            min-height: 50px;
+            max-height: 150px;
+            transition: all 0.3s;
+        }
+
+        #messageInput:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .send-btn, .upload-btn, .search-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--search-color), #2563eb);
+        }
+
+        .send-btn:hover, .upload-btn:hover, .search-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px var(--accent);
+        }
+
+        .send-btn:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            max-width: 80px;
+            margin: 15px 0;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: typing 1.4s infinite;
+            margin: 0 2px;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="theme-toggle" onclick="toggleThemeMenu()">🎨</div>
+    <div class="theme-menu" id="themeMenu">
+        <button class="theme-btn active" onclick="changeTheme('dark')" data-theme="dark">
+            <span>🌌</span> Dark Cyber
+        </button>
+        <button class="theme-btn" onclick="changeTheme('neon')" data-theme="neon">
+            <span>💜</span> Neon Purple
+        </button>
+        <button class="theme-btn" onclick="changeTheme('matrix')" data-theme="matrix">
+            <span>💚</span> Matrix Green
+        </button>
+        <button class="theme-btn" onclick="changeTheme('ocean')" data-theme="ocean">
+            <span>🌊</span> Ocean Blue
+        </button>
+        <button class="theme-btn" onclick="changeTheme('sunset')" data-theme="sunset">
+            <span>🌅</span> Sunset Orange
+        </button>
+        <button class="theme-btn" onclick="changeTheme('cyber')" data-theme="cyber">
+            <span>💗</span> Cyber Pink
+        </button>
+        <button class="theme-btn" onclick="changeTheme('aurora')" data-theme="aurora">
+            <span>✨</span> Aurora
+        </button>
+        <button class="theme-btn" onclick="changeTheme('wine')" data-theme="wine">
+            <span>🧛‍♂️</span> Wine Red
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">Nova AI</div>
+                
+                <!-- Model Seçici -->
+                <div class="model-selector">
+                    <select id="providerSelect" onchange="updateModelOptions()">
+                        <option value="">Yükleniyor...</option>
+                    </select>
+                    <select id="modelSelect" onchange="updateModelInfo()">
+                        <option value="">Model seç...</option>
+                    </select>
+                    <div class="model-info" id="modelInfo">Provider ve model seçin</div>
+                </div>
+
+                <!-- ŞİVE SEÇİCİ - YENİ EKLENEN! 🎭 -->
+                <div class="model-selector" style="margin-top: 15px;">
+                    <label class="dialect-label">
+                        🎭 Şive Seçin:
+                    </label>
+                    <select id="dialectSelect">
+                        <option value="normal">Normal</option>
+                        <option value="karadeniz">🏔️ Karadeniz Şivesi</option>
+                        <option value="ege">🌊 Ege Şivesi</option>
+                    </select>
+                </div>
+                
+                <button class="new-chat-btn" onclick="createNewConversation()">
+                    ➕ Yeni Sohbet
+                </button>
+            </div>
+            <div class="conversations-list" id="conversationsList"></div>
+        </div>
+
+        <div class="chat-area">
+            <div class="chat-header">
+                <h2>🤖 Nova - Gelişmiş Yapay Zeka Asistan</h2>
+            </div>
+            <div class="messages" id="messages">
+                <div class="message assistant">
+                    <div class="message-header">🤖 Nova</div>
+                    <div class="message-content">
+                        Merhaba! Ben Nova, senin gelişmiş yapay zeka asistanınım. 🚀<br><br>
+                        Sana şu konularda yardımcı olabilirim:<br>
+                        • 💻 Kod yazma ve çalıştırma<br>
+                        • 📚 Öğrenme ve araştırma<br>
+                        • ✏️ Yaratıcı içerik üretme<br>
+                        • 🔧 Problem çözme<br>
+                        • 💬 Genel sohbet<br>
+                        • 🔍 Web'de arama<br>
+                        • 🎨 8 farklı tema<br>
+                        • 🎭 Şive desteği (Karadeniz & Ege)<br><br>
+                        Nasıl yardımcı olabilirim?
+                    </div>
+                </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="input-area">
+                <div class="input-container">
+                    <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)">
+                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                        📎 Dosya
+                    </button>
+                    <button class="search-btn" onclick="searchWeb()">
+                        🔍 Ara
+                    </button>
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Mesajını yaz..."
+                        onkeydown="handleKeyPress(event)"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                        Gönder 🚀
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/artifacts.js"></script>
+
+    <script>
+        if (!window.artifactRenderer) {
+            console.error('❌ artifacts.js yüklenemedi!');
+            window.artifactRenderer = {
+                createArtifact: function() {
+                    console.error('❌ Artifact sistemi çalışmıyor!');
+                }
+            };
+        }
+        
+        let currentConversationId = null;
+        let availableProviders = {};
+        let availableModels = {};
+        let selectedProvider = 'google';
+        let selectedModel = '';
+
+        function toggleThemeMenu() {
+            const menu = document.getElementById('themeMenu');
+            menu.classList.toggle('active');
+        }
+
+        function changeTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('nova-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-theme') === theme) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            document.getElementById('themeMenu').classList.remove('active');
+        }
+
+        const savedTheme = localStorage.getItem('nova-theme') || 'dark';
+        changeTheme(savedTheme);
+
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('themeMenu');
+            const toggle = document.querySelector('.theme-toggle');
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProviders();
+            loadConversations();
+            createNewConversation();
+        });
+
+        async function loadProviders() {
+            try {
+                const response = await fetch('/api/providers');
+                const data = await response.json();
+                
+                availableProviders = data.providers;
+                availableModels = data.models;
+                selectedProvider = data.default_provider;
+                selectedModel = data.default_models[selectedProvider];
+                
+                const providerSelect = document.getElementById('providerSelect');
+                providerSelect.innerHTML = '';
+                
+                availableProviders.forEach(provider => {
+                    const option = document.createElement('option');
+                    option.value = provider;
+                    option.textContent = provider.toUpperCase();
+                    if (provider === selectedProvider) option.selected = true;
+                    providerSelect.appendChild(option);
+                });
+                
+                updateModelOptions();
+            } catch (error) {
+                console.error('Provider\'lar yüklenemedi:', error);
+            }
+        }
+
+        function updateModelOptions() {
+            const providerSelect = document.getElementById('providerSelect');
+            const modelSelect = document.getElementById('modelSelect');
+            
+            selectedProvider = providerSelect.value;
+            const models = availableModels[selectedProvider];
+            
+            modelSelect.innerHTML = '';
+            
+            models.forEach((model, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = model;
+                modelSelect.appendChild(option);
+            });
+            
+            selectedModel = 0;
+            modelSelect.value = selectedModel;
+            
+            updateModelInfo();
+        }
+
+        function updateModelInfo() {
+            const modelSelect = document.getElementById('modelSelect');
+            const modelInfo = document.getElementById('modelInfo');
+            
+            selectedModel = modelSelect.value;
+            const modelName = availableModels[selectedProvider][selectedModel];
+            
+            modelInfo.textContent = `🤖 ${selectedProvider.toUpperCase()} - ${modelName}`;
+        }
+
+        async function searchWeb() {
+            const input = document.getElementById('messageInput');
+            const query = input.value.trim();
+            
+            if (!query) {
+                alert('Lütfen arama yapılacak bir metin girin!');
+                return;
+            }
+            
+            addMessageToUI('user', `🔍 Arama: ${query}`);
+            input.value = '';
+            input.style.height = '50px';
+            
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.classList.add('active');
+            scrollToBottom();
+            
+            try {
+                const response = await fetch('/api/search', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({query: query})
+                });
+                
+                const data = await response.json();
+                typingIndicator.classList.remove('active');
+                
+                if (data.error) {
+                    addMessageToUI('assistant', `❌ Arama hatası: ${data.error}`);
+                } else {
+                    let resultHTML = `<div class="search-result">
+                        <div class="search-result-title">🔍 "${data.query}" için arama sonuçları:</div>`;
+                    
+                    if (data.answer) {
+                        resultHTML += `<div class="search-result-item">
+                            <div class="search-result-item-title">🎯 AI Özeti:</div>
+                            <div class="search-result-item-content">${data.answer}</div>
+                        </div>`;
+                    }
+                    
+                    data.results.forEach((result, index) => {
+                        resultHTML += `<div class="search-result-item">
+                            <div class="search-result-item-title">${index + 1}. ${result.title}</div>
+                            <div class="search-result-item-url">${result.url}</div>
+                            <div class="search-result-item-content">${result.content}</div>
+                        </div>`;
+                    });
+                    
+                    resultHTML += `</div>`;
+                    
+                    const messageDiv = addMessageToUI('assistant', '');
+                    messageDiv.querySelector('.message-content').innerHTML = resultHTML;
+                }
+                
+            } catch (error) {
+                typingIndicator.classList.remove('active');
+                console.error('Arama hatası:', error);
+                addMessageToUI('assistant', `❌ Arama yapılamadı: ${error.message}`);
+            }
+            
+            scrollToBottom();
+        }
+
+        async function loadConversations() {
+            try {
+                const response = await fetch('/api/conversations');
+                const conversations = await response.json();
+                
+                const list = document.getElementById('conversationsList');
+                list.innerHTML = '';
+                
+                conversations.forEach(conv => {
+                    const item = document.createElement('div');
+                    item.className = 'conversation-item';
+                    if (conv.id === currentConversationId) {
+                        item.classList.add('active');
+                    }
+                    
+                    const title = document.createElement('span');
+                    title.textContent = conv.title;
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.textContent = '🗑️';
+                    deleteBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        deleteConversation(conv.id);
+                    };
+                    
+                    item.appendChild(title);
+                    item.appendChild(deleteBtn);
+                    item.onclick = () => loadConversation(conv.id);
+                    
+                    list.appendChild(item);
+                });
+            } catch (error) {
+                console.error('Konuşmalar yüklenemedi:', error);
+            }
+        }
+
+        async function createNewConversation() {
+            try {
+                const response = await fetch('/api/conversations', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({title: 'Yeni Sohbet'})
+                });
+                const data = await response.json();
+                currentConversationId = data.id;
+                
+                document.getElementById('messages').innerHTML = `
+                    <div class="message assistant">
+                        <div class="message-header">🤖 Nova</div>
+                        <div class="message-content">
+                            Merhaba! Ben Nova, senin gelişmiş yapay zeka asistanınım. 🚀<br><br>
+                            Nasıl yardımcı olabilirim?
+                        </div>
+                    </div>
+                `;
+                
+                loadConversations();
+            } catch (error) {
+                console.error('Konuşma oluşturulamadı:', error);
+            }
+        }
+
+        async function loadConversation(convId) {
+            currentConversationId = convId;
+            
+            try {
+                const response = await fetch(`/api/conversations/${convId}/messages`);
+                const messages = await response.json();
+                
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
+                
+                messages.forEach(msg => {
+                    if (msg.role === 'user' || msg.role === 'assistant') {
+                        addMessageToUI(msg.role, msg.content);
+                    }
+                });
+                
+                loadConversations();
+                scrollToBottom();
+            } catch (error) {
+                console.error('Mesajlar yüklenemedi:', error);
+            }
+        }
+
+        async function deleteConversation(convId) {
+            if (!confirm('Bu sohbeti silmek istediğinize emin misiniz?')) return;
+            
+            try {
+                await fetch(`/api/conversations/${convId}`, {method: 'DELETE'});
+                
+                if (convId === currentConversationId) {
+                    createNewConversation();
+                } else {
+                    loadConversations();
+                }
+            } catch (error) {
+                console.error('Konuşma silinemedi:', error);
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message || !currentConversationId) return;
+            
+            addMessageToUI('user', message);
+            input.value = '';
+            input.style.height = '50px';
+            
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Gönderiliyor...';
+            
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.classList.add('active');
+            scrollToBottom();
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        conversation_id: currentConversationId,
+                        message: message,
+                        provider: selectedProvider,
+                        model: selectedModel,
+                        dialect: document.getElementById('dialectSelect').value  // ŞİVE EKLENDI! 🎭
+                    })
+                });
+                
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let assistantMessage = '';
+                let messageDiv = null;
+                
+                while (true) {
+                    const {done, value} = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = line.substring(6);
+                            
+                            if (data.startsWith('[ARTIFACT:')) {
+                                const artifactId = data.match(/\[ARTIFACT:(.*?)\]/)[1];
+                                
+                                const artifactResponse = await fetch(`/api/artifacts/${artifactId}`);
+                                const artifactData = await artifactResponse.json();
+                                
+                                if (!messageDiv) {
+                                    typingIndicator.classList.remove('active');
+                                    messageDiv = addMessageToUI('assistant', '');
+                                }
+                                
+                                if (window.artifactRenderer && typeof window.artifactRenderer.createArtifact === 'function') {
+                                    await window.artifactRenderer.createArtifact(artifactData, messageDiv);
+                                } else {
+                                    console.error('❌ Artifact renderer bulunamadı!');
+                                    const codeBlock = `\`\`\`${artifactData.language}\n${artifactData.content}\n\`\`\``;
+                                    updateMessageContent(messageDiv, codeBlock);
+                                }
+                                continue;
+                            }
+                            
+                            if (data === '[DONE]') {
+                                typingIndicator.classList.remove('active');
+                                break;
+                            }
+                            
+                            if (data === '[DIALECT_UPDATE]') {
+                                // Şive güncellemesi gelecek, mesajı sıfırla
+                                assistantMessage = '';
+                                continue;
+                            }
+                            
+                            assistantMessage += data;
+                            
+                            if (!messageDiv) {
+                                typingIndicator.classList.remove('active');
+                                messageDiv = addMessageToUI('assistant', assistantMessage);
+                            } else {
+                                updateMessageContent(messageDiv, assistantMessage);
+                            }
+                            
+                            scrollToBottom();
+                        }
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Mesaj gönderilemedi:', error);
+                alert('Bir hata oluştu: ' + error.message);
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Gönder 🚀';
+                typingIndicator.classList.remove('active');
+                loadConversations();
+            }
+        }
+
+        function addMessageToUI(role, content) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            
+            const header = document.createElement('div');
+            header.className = 'message-header';
+            header.innerHTML = role === 'user' ? '👤 Sen' : '🤖 Nova';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            if (role === 'assistant') {
+                const html = marked.parse(content);
+                contentDiv.innerHTML = html;
+                
+                contentDiv.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+                
+                const ttsBtn = document.createElement('button');
+                ttsBtn.className = 'tts-btn';
+                ttsBtn.textContent = '🔊 Seslendir';
+                ttsBtn.onclick = () => textToSpeech(content);
+                header.appendChild(ttsBtn);
+            } else {
+                contentDiv.textContent = content;
+            }
+            
+            messageDiv.appendChild(header);
+            messageDiv.appendChild(contentDiv);
+            messagesDiv.appendChild(messageDiv);
+            
+            scrollToBottom();
+            return messageDiv;
+        }
+
+        function updateMessageContent(messageDiv, content) {
+            const contentDiv = messageDiv.querySelector('.message-content');
+            const html = marked.parse(content);
+            contentDiv.innerHTML = html;
+            
+            contentDiv.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function scrollToBottom() {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        document.getElementById('messageInput').addEventListener('input', function() {
+            this.style.height = '50px';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        async function textToSpeech(text) {
+            try {
+                const response = await fetch('/api/tts', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({text: text})
+                });
+                
+                const data = await response.json();
+                const audio = new Audio(data.audio_url);
+                audio.play();
+            } catch (error) {
+                console.error('TTS hatası:', error);
+                alert('Ses oluşturulamadı');
+            }
+        }
+
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.content) {
+                    const message = `📎 Dosya yüklendi: ${data.filename}\n\nİçerik:\n${data.content}`;
+                    document.getElementById('messageInput').value = message;
+                }
+            } catch (error) {
+                console.error('Dosya yüklenemedi:', error);
+                alert('Dosya yüklenemedi');
+            }
+        }
+    </script>
+</body>
+</html>

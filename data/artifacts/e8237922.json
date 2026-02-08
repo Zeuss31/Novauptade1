@@ -1,0 +1,18 @@
+{
+  "id": "e8237922",
+  "type": "code",
+  "title": "Python Code",
+  "content": "import random\n\nkelimeler = [\"elma\", \"armut\", \"muz\", \"çilek\", \"karpuz\"]\nkelime = random.choice(kelimeler)\ngizli_kelime = [\"_\"] * len(kelime)\n\nhaklar = 6\n\nwhile haklar > 0:\n  print(\" \".join(gizli_kelime))\n  tahmin = input(\"Bir harf tahmin edin: \").lower()\n\n  if tahmin in kelime:\n    for i in range(len(kelime)):\n      if kelime[i] == tahmin:\n        gizli_kelime[i] = tahmin\n  else:\n    haklar -= 1\n    print(\"Yanlış tahmin! Kalan haklar:\", haklar)\n\n  if \"_\" not in gizli_kelime:\n    print(\"Tebrikler, kelimeyi bildin! Kelime:\", kelime)\n    break\n\nif haklar == 0:\n  print(\"Maalesef kelimeyi bulamadın. Kelime:\", kelime)",
+  "language": "python",
+  "conversation_id": 60,
+  "created_at": "2025-10-05T22:58:03.639645",
+  "updated_at": "2025-10-05T22:58:03.639645",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nkelimeler = [\"elma\", \"armut\", \"muz\", \"çilek\", \"karpuz\"]\nkelime = random.choice(kelimeler)\ngizli_kelime = [\"_\"] * len(kelime)\n\nhaklar = 6\n\nwhile haklar > 0:\n  print(\" \".join(gizli_kelime))\n  tahmin = input(\"Bir harf tahmin edin: \").lower()\n\n  if tahmin in kelime:\n    for i in range(len(kelime)):\n      if kelime[i] == tahmin:\n        gizli_kelime[i] = tahmin\n  else:\n    haklar -= 1\n    print(\"Yanlış tahmin! Kalan haklar:\", haklar)\n\n  if \"_\" not in gizli_kelime:\n    print(\"Tebrikler, kelimeyi bildin! Kelime:\", kelime)\n    break\n\nif haklar == 0:\n  print(\"Maalesef kelimeyi bulamadın. Kelime:\", kelime)",
+      "timestamp": "2025-10-05T22:58:03.639645"
+    }
+  ]
+}

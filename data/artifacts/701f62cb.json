@@ -1,0 +1,18 @@
+{
+  "id": "701f62cb",
+  "type": "html",
+  "title": "Html Code",
+  "content": "<form action=\"/register\" method=\"post\">\n    <label for=\"username\">Kullanıcı Adı:</label><br>\n    <input type=\"text\" id=\"username\" name=\"username\"><br><br>\n\n    <label for=\"email\">E-posta:</label><br>\n    <input type=\"email\" id=\"email\" name=\"email\"><br><br>\n\n    <label for=\"password\">Şifre:</label><br>\n    <input type=\"password\" id=\"password\" name=\"password\"><br><br>\n\n    <input type=\"submit\" value=\"Kayıt Ol\">\n</form>",
+  "language": "html",
+  "conversation_id": 519,
+  "created_at": "2025-10-31T09:44:01.924795",
+  "updated_at": "2025-10-31T09:44:01.924795",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "<form action=\"/register\" method=\"post\">\n    <label for=\"username\">Kullanıcı Adı:</label><br>\n    <input type=\"text\" id=\"username\" name=\"username\"><br><br>\n\n    <label for=\"email\">E-posta:</label><br>\n    <input type=\"email\" id=\"email\" name=\"email\"><br><br>\n\n    <label for=\"password\">Şifre:</label><br>\n    <input type=\"password\" id=\"password\" name=\"password\"><br><br>\n\n    <input type=\"submit\" value=\"Kayıt Ol\">\n</form>",
+      "timestamp": "2025-10-31T09:44:01.924795"
+    }
+  ]
+}

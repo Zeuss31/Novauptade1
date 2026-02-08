@@ -1,0 +1,18 @@
+{
+  "id": "9400e587",
+  "type": "code",
+  "title": "Function: dovus_oyunu",
+  "content": "import random\n\ndef dovus_oyunu():\n    \"\"\"Basit bir dövüş oyunu.\"\"\"\n\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1_can = 100\n    oyuncu2_can = 100\n\n    sira = 1  # 1. oyuncu ile başla\n\n    while oyuncu1_can > 0 and oyuncu2_can > 0:\n        print(\"\\n--- \" + str(sira) + \". RAUND ---\")\n\n        if sira % 2 == 1:\n            saldiran = oyuncu1_adi\n            savunan = oyuncu2_adi\n            saldiran_can = oyuncu1_can\n            savunan_can = oyuncu2_can\n        else:\n            saldiran = oyuncu2_adi\n            savunan = oyuncu1_adi\n            saldiran_can = oyuncu2_can\n            savunan_can = oyuncu1_can\n\n        # Saldırı gücünü rastgele belirle\n        saldiri_gucu = random.randint(10, 20)\n\n        print(saldiran + \", \" + savunan + \" oyuncusuna \" + str(saldiri_gucu) + \" hasar verdi!\")\n        \n        # Can puanını azalt\n        if sira % 2 == 1:\n            oyuncu2_can -= saldiri_gucu\n        else:\n            oyuncu1_can -= saldiri_gucu\n\n        # Kalan can puanlarını göster\n        print(oyuncu1_adi + \" Canı: \" + str(oyuncu1_can))\n        print(oyuncu2_adi + \" Canı: \" + str(oyuncu2_can))\n\n        sira += 1\n\n    # Oyunu kimin kazandığını belirle\n    if oyuncu1_can <= 0:\n        kazanan = oyuncu2_adi\n    else:\n        kazanan = oyuncu1_adi\n\n    print(\"\\n\" + kazanan + \" oyunu kazandı! Tebrikler! 🎉\")\n\n# Oyunu başlat\ndovus_oyunu()",
+  "language": "python",
+  "conversation_id": 400,
+  "created_at": "2025-10-19T01:47:15.877864",
+  "updated_at": "2025-10-19T01:47:15.877864",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\ndef dovus_oyunu():\n    \"\"\"Basit bir dövüş oyunu.\"\"\"\n\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1_can = 100\n    oyuncu2_can = 100\n\n    sira = 1  # 1. oyuncu ile başla\n\n    while oyuncu1_can > 0 and oyuncu2_can > 0:\n        print(\"\\n--- \" + str(sira) + \". RAUND ---\")\n\n        if sira % 2 == 1:\n            saldiran = oyuncu1_adi\n            savunan = oyuncu2_adi\n            saldiran_can = oyuncu1_can\n            savunan_can = oyuncu2_can\n        else:\n            saldiran = oyuncu2_adi\n            savunan = oyuncu1_adi\n            saldiran_can = oyuncu2_can\n            savunan_can = oyuncu1_can\n\n        # Saldırı gücünü rastgele belirle\n        saldiri_gucu = random.randint(10, 20)\n\n        print(saldiran + \", \" + savunan + \" oyuncusuna \" + str(saldiri_gucu) + \" hasar verdi!\")\n        \n        # Can puanını azalt\n        if sira % 2 == 1:\n            oyuncu2_can -= saldiri_gucu\n        else:\n            oyuncu1_can -= saldiri_gucu\n\n        # Kalan can puanlarını göster\n        print(oyuncu1_adi + \" Canı: \" + str(oyuncu1_can))\n        print(oyuncu2_adi + \" Canı: \" + str(oyuncu2_can))\n\n        sira += 1\n\n    # Oyunu kimin kazandığını belirle\n    if oyuncu1_can <= 0:\n        kazanan = oyuncu2_adi\n    else:\n        kazanan = oyuncu1_adi\n\n    print(\"\\n\" + kazanan + \" oyunu kazandı! Tebrikler! 🎉\")\n\n# Oyunu başlat\ndovus_oyunu()",
+      "timestamp": "2025-10-19T01:47:15.877864"
+    }
+  ]
+}

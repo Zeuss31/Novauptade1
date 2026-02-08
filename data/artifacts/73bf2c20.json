@@ -1,0 +1,18 @@
+{
+  "id": "73bf2c20",
+  "type": "html",
+  "title": "HTML Document",
+  "content": "<!DOCTYPE html>\n<html lang=\"tr\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Aşk Sitesi</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <header>\n        <nav>\n            <ul>\n                <li><a href=\"#\">Anasayfa</a></li>\n                <li><a href=\"#\">Hikaye</a></li>\n                <li><a href=\"#\">Şiir</a></li>\n                <li><a href=\"#\">Müzik</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <section>\n            <h1>Aşk Hikayeleri</h1>\n            <p>İnsanların birbirlerine karşı hissettikleri şeyler, her dilden ve her kültürden farklı olabilir. Ama bu hisler, hepimiz için ortak bir dildir.</p>\n            <button>Oku</button>\n        </section>\n        <section>\n            <h1>Aşk Şiirleri</h1>\n            <p>Şiir, aşka dair duyguların ifade edilmesi için ideal bir araçtır. İnsanların düşüncelerini ve hislerini, kelimelerle paylaşmalarına yardımcı olur.</p>\n            <button>Oku</button>\n        </section>\n    </main>\n    <footer>\n        <p>&copy; 2023 Aşk Sitesi</p>\n    </footer>\n</body>\n</html>",
+  "language": "html",
+  "conversation_id": 65,
+  "created_at": "2025-10-06T00:20:52.303604",
+  "updated_at": "2025-10-06T00:20:52.303604",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "<!DOCTYPE html>\n<html lang=\"tr\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Aşk Sitesi</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <header>\n        <nav>\n            <ul>\n                <li><a href=\"#\">Anasayfa</a></li>\n                <li><a href=\"#\">Hikaye</a></li>\n                <li><a href=\"#\">Şiir</a></li>\n                <li><a href=\"#\">Müzik</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <section>\n            <h1>Aşk Hikayeleri</h1>\n            <p>İnsanların birbirlerine karşı hissettikleri şeyler, her dilden ve her kültürden farklı olabilir. Ama bu hisler, hepimiz için ortak bir dildir.</p>\n            <button>Oku</button>\n        </section>\n        <section>\n            <h1>Aşk Şiirleri</h1>\n            <p>Şiir, aşka dair duyguların ifade edilmesi için ideal bir araçtır. İnsanların düşüncelerini ve hislerini, kelimelerle paylaşmalarına yardımcı olur.</p>\n            <button>Oku</button>\n        </section>\n    </main>\n    <footer>\n        <p>&copy; 2023 Aşk Sitesi</p>\n    </footer>\n</body>\n</html>",
+      "timestamp": "2025-10-06T00:20:52.303604"
+    }
+  ]
+}

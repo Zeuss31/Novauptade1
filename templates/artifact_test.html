@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Artifact Görüntüleyici</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    
+    <link rel="stylesheet" href="nova_artifacts.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>Nova Artifact Görüntüleyici</h1>
+        <p>Aşağıdaki butonlara tıklayarak örnek artifact'ler oluşturun.</p>
+        <div class="test-buttons">
+            <button onclick="createPythonExample()">Python Kodu Artifact'i Oluştur</button>
+            <button onclick="createHtmlExample()">HTML Önizleme Artifact'i Oluştur</button>
+        </div>
+    </header>
+
+    <main id="artifact-feed">
+        </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <script src="nova_artifacts.js"></script>
+
+</body>
+</html>

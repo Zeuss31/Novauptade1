@@ -1,0 +1,18 @@
+{
+  "id": "60458d73",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n  def __init__(self, isim, saldırı, savunma):\n    self.isim = isim\n    self.saldırı = saldırı\n    self.savunma = savunma\n    self.can = 100\n\n  def saldır(self, hedef):\n    hasar = self.saldırı - hedef.savunma\n    if hasar <= 0:\n      print(f\"{self.isim} {hedef.isim}'e vurdu ama savunması çok güçlüydü!\")\n    else:\n      hedef.can -= hasar\n      print(f\"{self.isim} {hedef.isim}'e {hasar} hasar verdi!\")\n\n  def durum(self):\n    print(f\"{self.isim} canı: {self.can}\")\n\n# Karakter oluşturma\nkırmızı_kaplan = Karakter(\"Kırmızı Kaplan\", 8, 6)\nsiyah_kartal = Karakter(\"Siyah Kartal\", 6, 9)\n\n# Oyun döngüsü\nwhile kırmızı_kaplan.can > 0 and siyah_kartal.can > 0:\n  print(\"-\" * 20)\n  kırmızı_kaplan.durum()\n  siyah_kartal.durum()\n  print(\"-\" * 20)\n\n  # Saldırı sırası\n  print(f\"{kırmızı_kaplan.isim} saldırıyor!\")\n  kırmızı_kaplan.saldır(siyah_kartal)\n\n  if siyah_kartal.can > 0:\n    print(f\"{siyah_kartal.isim} saldırıyor!\")\n    siyah_kartal.saldır(kırmızı_kaplan)\n\n# Oyun sonucu\nif kırmızı_kaplan.can > 0:\n  print(f\"{kırmızı_kaplan.isim} kazandı!\")\nelse:\n  print(f\"{siyah_kartal.isim} kazandı!\")",
+  "language": "python",
+  "conversation_id": 59,
+  "created_at": "2025-10-05T22:49:07.935769",
+  "updated_at": "2025-10-05T22:49:07.935769",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n  def __init__(self, isim, saldırı, savunma):\n    self.isim = isim\n    self.saldırı = saldırı\n    self.savunma = savunma\n    self.can = 100\n\n  def saldır(self, hedef):\n    hasar = self.saldırı - hedef.savunma\n    if hasar <= 0:\n      print(f\"{self.isim} {hedef.isim}'e vurdu ama savunması çok güçlüydü!\")\n    else:\n      hedef.can -= hasar\n      print(f\"{self.isim} {hedef.isim}'e {hasar} hasar verdi!\")\n\n  def durum(self):\n    print(f\"{self.isim} canı: {self.can}\")\n\n# Karakter oluşturma\nkırmızı_kaplan = Karakter(\"Kırmızı Kaplan\", 8, 6)\nsiyah_kartal = Karakter(\"Siyah Kartal\", 6, 9)\n\n# Oyun döngüsü\nwhile kırmızı_kaplan.can > 0 and siyah_kartal.can > 0:\n  print(\"-\" * 20)\n  kırmızı_kaplan.durum()\n  siyah_kartal.durum()\n  print(\"-\" * 20)\n\n  # Saldırı sırası\n  print(f\"{kırmızı_kaplan.isim} saldırıyor!\")\n  kırmızı_kaplan.saldır(siyah_kartal)\n\n  if siyah_kartal.can > 0:\n    print(f\"{siyah_kartal.isim} saldırıyor!\")\n    siyah_kartal.saldır(kırmızı_kaplan)\n\n# Oyun sonucu\nif kırmızı_kaplan.can > 0:\n  print(f\"{kırmızı_kaplan.isim} kazandı!\")\nelse:\n  print(f\"{siyah_kartal.isim} kazandı!\")",
+      "timestamp": "2025-10-05T22:49:07.935769"
+    }
+  ]
+}

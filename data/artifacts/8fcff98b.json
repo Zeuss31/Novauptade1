@@ -1,0 +1,18 @@
+{
+  "id": "8fcff98b",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, isim, can=100, saldiri_gucu=10):\n        \"\"\"Karakter sınıfının oluşturulması.\n        isim: Karakterin adı (string)\n        can: Karakterin başlangıç canı (int, default 100)\n        saldiri_gucu: Karakterin saldırı gücü (int, default 10)\n        \"\"\"\n        self.isim = isim\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        \"\"\"Karakterin rakibe saldırması.\n        rakip: Saldırılacak Karakter nesnesi\n        \"\"\"\n        vurus_gucu = self.saldiri_gucu + random.randint(-2, 5)  # Rastgelelik kat\n        rakip.can -= vurus_gucu\n        print(f\"{self.isim}, {rakip.isim}'e {vurus_gucu} vurdu! Kalan can: {rakip.can}\")\n\n        if rakip.can <= 0:\n            print(f\"{rakip.isim} yenildi! {self.isim} kazandı!\")\n            return True  # Oyun bitti\n        return False\n\n# Oyunun ana fonksiyonu\ndef dovus_oyunu(karakter1_isim=\"Oyuncu 1\", karakter2_isim=\"Oyuncu 2\"):\n    \"\"\"Basit bir dövüş oyunu başlatır.\n    karakter1_isim: 1. oyuncunun adı (string, default \"Oyuncu 1\")\n    karakter2_isim: 2. oyuncunun adı (string, default \"Oyuncu 2\")\n    \"\"\"\n    karakter1 = Karakter(karakter1_isim)\n    karakter2 = Karakter(karakter2_isim)\n\n    tur = 1\n    while True:\n        print(f\"\\n--- {tur}. Tur ---\")\n\n        # 1. oyuncu saldırır\n        if karakter1.saldir(karakter2):\n            break\n\n        # 2. oyuncu saldırır\n        if karakter2.saldir(karakter1):\n            break\n\n        tur += 1\n\n# Oyunu başlat\nif __name__ == \"__main__\":\n    dovus_oyunu(\"Ryu\", \"Ken\") # Örnek isimlerle başlat",
+  "language": "python",
+  "conversation_id": 356,
+  "created_at": "2025-10-17T02:53:01.855259",
+  "updated_at": "2025-10-17T02:53:01.855259",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, isim, can=100, saldiri_gucu=10):\n        \"\"\"Karakter sınıfının oluşturulması.\n        isim: Karakterin adı (string)\n        can: Karakterin başlangıç canı (int, default 100)\n        saldiri_gucu: Karakterin saldırı gücü (int, default 10)\n        \"\"\"\n        self.isim = isim\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        \"\"\"Karakterin rakibe saldırması.\n        rakip: Saldırılacak Karakter nesnesi\n        \"\"\"\n        vurus_gucu = self.saldiri_gucu + random.randint(-2, 5)  # Rastgelelik kat\n        rakip.can -= vurus_gucu\n        print(f\"{self.isim}, {rakip.isim}'e {vurus_gucu} vurdu! Kalan can: {rakip.can}\")\n\n        if rakip.can <= 0:\n            print(f\"{rakip.isim} yenildi! {self.isim} kazandı!\")\n            return True  # Oyun bitti\n        return False\n\n# Oyunun ana fonksiyonu\ndef dovus_oyunu(karakter1_isim=\"Oyuncu 1\", karakter2_isim=\"Oyuncu 2\"):\n    \"\"\"Basit bir dövüş oyunu başlatır.\n    karakter1_isim: 1. oyuncunun adı (string, default \"Oyuncu 1\")\n    karakter2_isim: 2. oyuncunun adı (string, default \"Oyuncu 2\")\n    \"\"\"\n    karakter1 = Karakter(karakter1_isim)\n    karakter2 = Karakter(karakter2_isim)\n\n    tur = 1\n    while True:\n        print(f\"\\n--- {tur}. Tur ---\")\n\n        # 1. oyuncu saldırır\n        if karakter1.saldir(karakter2):\n            break\n\n        # 2. oyuncu saldırır\n        if karakter2.saldir(karakter1):\n            break\n\n        tur += 1\n\n# Oyunu başlat\nif __name__ == \"__main__\":\n    dovus_oyunu(\"Ryu\", \"Ken\") # Örnek isimlerle başlat",
+      "timestamp": "2025-10-17T02:53:01.855259"
+    }
+  ]
+}

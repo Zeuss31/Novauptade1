@@ -1,0 +1,18 @@
+{
+  "id": "59ca0955",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Oyuncu:\n    def __init__(self, ad, can=100, saldiri_gucu=15):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus_gucu = random.randint(self.saldiri_gucu - 5, self.saldiri_gucu + 5)\n        rakip.can -= vurus_gucu\n        print(f\"{self.ad}, {rakip.ad}'ye {vurus_gucu} vurdu! Kalan can: {rakip.can}\")\n        if rakip.can <= 0:\n            print(f\"{self.ad} kazandı!\")\n        return rakip.can <= 0\n\ndef dovus_oyunu():\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1 = Oyuncu(oyuncu1_adi)\n    oyuncu2 = Oyuncu(oyuncu2_adi)\n\n    print(f\"\\n{oyuncu1.ad}: {oyuncu1.can} can ile başladı.\")\n    print(f\"{oyuncu2.ad}: {oyuncu2.can} can ile başladı.\\n\")\n\n    while oyuncu1.can > 0 and oyuncu2.can > 0:\n        # 1. Oyuncunun saldırısı\n        if oyuncu1.saldir(oyuncu2):\n            break\n\n        if oyuncu2.can <= 0:\n            break\n\n        # 2. Oyuncunun saldırısı\n        if oyuncu2.saldir(oyuncu1):\n            break\n\n        print(\"-\" * 30)\n\n    print(\"Oyun bitti!\")\n\ndovus_oyunu()",
+  "language": "python",
+  "conversation_id": 396,
+  "created_at": "2025-10-19T01:44:30.383104",
+  "updated_at": "2025-10-19T01:44:30.383104",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Oyuncu:\n    def __init__(self, ad, can=100, saldiri_gucu=15):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n\n    def saldir(self, rakip):\n        vurus_gucu = random.randint(self.saldiri_gucu - 5, self.saldiri_gucu + 5)\n        rakip.can -= vurus_gucu\n        print(f\"{self.ad}, {rakip.ad}'ye {vurus_gucu} vurdu! Kalan can: {rakip.can}\")\n        if rakip.can <= 0:\n            print(f\"{self.ad} kazandı!\")\n        return rakip.can <= 0\n\ndef dovus_oyunu():\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1 = Oyuncu(oyuncu1_adi)\n    oyuncu2 = Oyuncu(oyuncu2_adi)\n\n    print(f\"\\n{oyuncu1.ad}: {oyuncu1.can} can ile başladı.\")\n    print(f\"{oyuncu2.ad}: {oyuncu2.can} can ile başladı.\\n\")\n\n    while oyuncu1.can > 0 and oyuncu2.can > 0:\n        # 1. Oyuncunun saldırısı\n        if oyuncu1.saldir(oyuncu2):\n            break\n\n        if oyuncu2.can <= 0:\n            break\n\n        # 2. Oyuncunun saldırısı\n        if oyuncu2.saldir(oyuncu1):\n            break\n\n        print(\"-\" * 30)\n\n    print(\"Oyun bitti!\")\n\ndovus_oyunu()",
+      "timestamp": "2025-10-19T01:44:30.383104"
+    }
+  ]
+}

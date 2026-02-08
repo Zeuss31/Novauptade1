@@ -1,0 +1,18 @@
+{
+  "id": "7cbd2cf9",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can=100, guc=10):\n        self.ad = ad\n        self.can = can\n        self.guc = guc\n\n    def saldir(self, rakip):\n        vurus = random.randint(0, self.guc)\n        rakip.can -= vurus\n        print(f\"{self.ad}, {rakip.ad}'a {vurus} hasar verdi!\")\n        if rakip.can <= 0:\n            print(f\"{rakip.ad} yenildi!\")\n            return True  # Rakip yenildi\n        return False  # Rakip hala hayatta\n\n# Karakterleri oluştur\noyuncu1 = Karakter(\"Ryu\")\noyuncu2 = Karakter(\"Ken\")\n\n# Oyun döngüsü\nwhile True:\n    # Oyuncu 1'in saldırısı\n    if oyuncu1.saldir(oyuncu2):\n        break\n\n    # Oyuncu 2'nin saldırısı\n    if oyuncu2.saldir(oyuncu1):\n        break\n\n    print(f\"{oyuncu1.ad} Can: {oyuncu1.can}, {oyuncu2.ad} Can: {oyuncu2.can}\")",
+  "language": "python",
+  "conversation_id": 141,
+  "created_at": "2025-10-09T20:38:19.323981",
+  "updated_at": "2025-10-09T20:38:19.323981",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can=100, guc=10):\n        self.ad = ad\n        self.can = can\n        self.guc = guc\n\n    def saldir(self, rakip):\n        vurus = random.randint(0, self.guc)\n        rakip.can -= vurus\n        print(f\"{self.ad}, {rakip.ad}'a {vurus} hasar verdi!\")\n        if rakip.can <= 0:\n            print(f\"{rakip.ad} yenildi!\")\n            return True  # Rakip yenildi\n        return False  # Rakip hala hayatta\n\n# Karakterleri oluştur\noyuncu1 = Karakter(\"Ryu\")\noyuncu2 = Karakter(\"Ken\")\n\n# Oyun döngüsü\nwhile True:\n    # Oyuncu 1'in saldırısı\n    if oyuncu1.saldir(oyuncu2):\n        break\n\n    # Oyuncu 2'nin saldırısı\n    if oyuncu2.saldir(oyuncu1):\n        break\n\n    print(f\"{oyuncu1.ad} Can: {oyuncu1.can}, {oyuncu2.ad} Can: {oyuncu2.can}\")",
+      "timestamp": "2025-10-09T20:38:19.323981"
+    }
+  ]
+}

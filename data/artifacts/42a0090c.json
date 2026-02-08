@@ -1,0 +1,18 @@
+{
+  "id": "42a0090c",
+  "type": "code",
+  "title": "Function: sayi_tahmin_oyunu",
+  "content": "import random\n\ndef sayi_tahmin_oyunu():\n    \"\"\"\n    Rastgele bir sayı üretir ve kullanıcının bu sayıyı tahmin etmesini sağlar.\n    \"\"\"\n\n    rastgele_sayi = random.randint(1, 100)  # 1 ile 100 arasında rastgele bir sayı seç\n    tahmin_sayisi = 0\n\n    print(\"1 ile 100 arasında bir sayı tahmin etmeye çalış!\")\n\n    while True:\n        try:\n            tahmin = int(input(\"Tahminini gir: \"))\n            tahmin_sayisi += 1\n\n            if tahmin < rastgele_sayi:\n                print(\"Daha yüksek bir sayı tahmin et.\")\n            elif tahmin > rastgele_sayi:\n                print(\"Daha düşük bir sayı tahmin et.\")\n            else:\n                print(f\"Tebrikler! {rastgele_sayi}'yi {tahmin_sayisi} tahminde buldun.\")\n                break\n        except ValueError:\n            print(\"Geçersiz giriş. Lütfen bir sayı gir.\")\n\n# Oyunu başlat\nif __name__ == \"__main__\":\n    sayi_tahmin_oyunu()",
+  "language": "python",
+  "conversation_id": 330,
+  "created_at": "2025-10-17T02:13:12.465586",
+  "updated_at": "2025-10-17T02:13:12.465586",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\ndef sayi_tahmin_oyunu():\n    \"\"\"\n    Rastgele bir sayı üretir ve kullanıcının bu sayıyı tahmin etmesini sağlar.\n    \"\"\"\n\n    rastgele_sayi = random.randint(1, 100)  # 1 ile 100 arasında rastgele bir sayı seç\n    tahmin_sayisi = 0\n\n    print(\"1 ile 100 arasında bir sayı tahmin etmeye çalış!\")\n\n    while True:\n        try:\n            tahmin = int(input(\"Tahminini gir: \"))\n            tahmin_sayisi += 1\n\n            if tahmin < rastgele_sayi:\n                print(\"Daha yüksek bir sayı tahmin et.\")\n            elif tahmin > rastgele_sayi:\n                print(\"Daha düşük bir sayı tahmin et.\")\n            else:\n                print(f\"Tebrikler! {rastgele_sayi}'yi {tahmin_sayisi} tahminde buldun.\")\n                break\n        except ValueError:\n            print(\"Geçersiz giriş. Lütfen bir sayı gir.\")\n\n# Oyunu başlat\nif __name__ == \"__main__\":\n    sayi_tahmin_oyunu()",
+      "timestamp": "2025-10-17T02:13:12.465586"
+    }
+  ]
+}

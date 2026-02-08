@@ -1,0 +1,18 @@
+{
+  "id": "ba68939a",
+  "type": "html",
+  "title": "Html Code",
+  "content": "<form action=\"/login\" method=\"post\">\n    <label for=\"username\">Kullanıcı Adı:</label><br>\n    <input type=\"text\" id=\"username\" name=\"username\"><br><br>\n\n    <label for=\"password\">Şifre:</label><br>\n    <input type=\"password\" id=\"password\" name=\"password\"><br><br>\n\n    <input type=\"submit\" value=\"Giriş Yap\">\n</form>",
+  "language": "html",
+  "conversation_id": 519,
+  "created_at": "2025-10-31T09:44:01.956119",
+  "updated_at": "2025-10-31T09:44:01.956119",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "<form action=\"/login\" method=\"post\">\n    <label for=\"username\">Kullanıcı Adı:</label><br>\n    <input type=\"text\" id=\"username\" name=\"username\"><br><br>\n\n    <label for=\"password\">Şifre:</label><br>\n    <input type=\"password\" id=\"password\" name=\"password\"><br><br>\n\n    <input type=\"submit\" value=\"Giriş Yap\">\n</form>",
+      "timestamp": "2025-10-31T09:44:01.956119"
+    }
+  ]
+}

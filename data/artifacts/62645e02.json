@@ -1,0 +1,18 @@
+{
+  "id": "62645e02",
+  "type": "code",
+  "title": "Python Code",
+  "content": "oyuncu = Karakter(\"Oyuncu\", 100, 20)\nbilgisayar = Karakter(\"Bilgisayar\", 100, 15)\n\nprint(\"Dövüş Başlıyor!\")\n\nwhile oyuncu.hayatta_mi() and bilgisayar.hayatta_mi():\n    print(\"\\n--- Oyuncu Sırası ---\")\n    oyuncu.saldir(bilgisayar)\n    if not bilgisayar.hayatta_mi():\n        print(\"Oyuncu kazandı!\")\n        break\n\n    print(\"\\n--- Bilgisayar Sırası ---\")\n    bilgisayar.saldir(oyuncu)\n    if not oyuncu.hayatta_mi():\n        print(\"Bilgisayar kazandı!\")\n        break",
+  "language": "python",
+  "conversation_id": 333,
+  "created_at": "2025-10-17T02:22:40.481159",
+  "updated_at": "2025-10-17T02:22:40.481159",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "oyuncu = Karakter(\"Oyuncu\", 100, 20)\nbilgisayar = Karakter(\"Bilgisayar\", 100, 15)\n\nprint(\"Dövüş Başlıyor!\")\n\nwhile oyuncu.hayatta_mi() and bilgisayar.hayatta_mi():\n    print(\"\\n--- Oyuncu Sırası ---\")\n    oyuncu.saldir(bilgisayar)\n    if not bilgisayar.hayatta_mi():\n        print(\"Oyuncu kazandı!\")\n        break\n\n    print(\"\\n--- Bilgisayar Sırası ---\")\n    bilgisayar.saldir(oyuncu)\n    if not oyuncu.hayatta_mi():\n        print(\"Bilgisayar kazandı!\")\n        break",
+      "timestamp": "2025-10-17T02:22:40.481159"
+    }
+  ]
+}

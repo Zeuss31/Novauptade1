@@ -1,0 +1,18 @@
+{
+  "id": "b292829c",
+  "type": "markdown",
+  "title": "Ekrana \"Merhaba Dünya!\" yazdıran basit bir Python programı",
+  "content": "# Ekrana \"Merhaba Dünya!\" yazdıran basit bir Python programı\n\nprint(\"Merhaba Dünya!\")  # print() fonksiyonu, belirtilen metni ekrana yazdırır",
+  "language": "python",
+  "conversation_id": 418,
+  "created_at": "2025-10-19T02:04:08.812994",
+  "updated_at": "2025-10-19T02:04:08.812994",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "# Ekrana \"Merhaba Dünya!\" yazdıran basit bir Python programı\n\nprint(\"Merhaba Dünya!\")  # print() fonksiyonu, belirtilen metni ekrana yazdırır",
+      "timestamp": "2025-10-19T02:04:08.812994"
+    }
+  ]
+}

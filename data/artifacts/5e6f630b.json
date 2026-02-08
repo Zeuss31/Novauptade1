@@ -1,0 +1,18 @@
+{
+  "id": "5e6f630b",
+  "type": "code",
+  "title": "Text Code",
+  "content": "Oyuncu 1, Oyuncu 2'e 15 hasar verdi!\nOyuncu 2, Oyuncu 1'e 12 hasar verdi!\nOyuncu 1 can: 88\nOyuncu 2 can: 85\n--------------------\nOyuncu 1, Oyuncu 2'e 18 hasar verdi!\nOyuncu 2, Oyuncu 1'e 19 hasar verdi!\nOyuncu 1 can: 69\nOyuncu 2 can: 67\n--------------------\n...\nOyuncu 1, Oyuncu 2'e 12 hasar verdi!\nOyuncu 2 öldü! Oyuncu 1 kazandı!",
+  "language": "text",
+  "conversation_id": 136,
+  "created_at": "2025-10-09T20:35:27.021109",
+  "updated_at": "2025-10-09T20:35:27.021109",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "Oyuncu 1, Oyuncu 2'e 15 hasar verdi!\nOyuncu 2, Oyuncu 1'e 12 hasar verdi!\nOyuncu 1 can: 88\nOyuncu 2 can: 85\n--------------------\nOyuncu 1, Oyuncu 2'e 18 hasar verdi!\nOyuncu 2, Oyuncu 1'e 19 hasar verdi!\nOyuncu 1 can: 69\nOyuncu 2 can: 67\n--------------------\n...\nOyuncu 1, Oyuncu 2'e 12 hasar verdi!\nOyuncu 2 öldü! Oyuncu 1 kazandı!",
+      "timestamp": "2025-10-09T20:35:27.021109"
+    }
+  ]
+}

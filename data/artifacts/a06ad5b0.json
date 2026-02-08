@@ -1,0 +1,18 @@
+{
+  "id": "a06ad5b0",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Oyuncu:\n    def __init__(self, isim, can=100, vurus_gucu=10):\n        \"\"\"Oyuncu sınıfı.\n\n        Args:\n            isim (str): Oyuncunun ismi.\n            can (int): Oyuncunun başlangıç canı.\n            vurus_gucu (int): Oyuncunun vuruş gücü.\n        \"\"\"\n        self.isim = isim\n        self.can = can\n        self.vurus_gucu = vurus_gucu\n\n    def vur(self, rakip):\n        \"\"\"Rakibe vurma fonksiyonu.\n\n        Args:\n            rakip (Oyuncu): Vurulacak rakip oyuncu.\n        \"\"\"\n        vurus = random.randint(0, self.vurus_gucu) # Rastgele vuruş gücü\n        rakip.can -= vurus\n        print(f\"{self.isim}, {rakip.isim}'e {vurus} vurdu! Kalan can: {rakip.can}\")\n\n    def hayatta_mi(self):\n        \"\"\"Oyuncunun hayatta olup olmadığını kontrol eder.\"\"\"\n        return self.can > 0\n\ndef dovus(oyuncu1, oyuncu2):\n    \"\"\"İki oyuncu arasında dövüş başlatır.\n\n    Args:\n        oyuncu1 (Oyuncu): Birinci oyuncu.\n        oyuncu2 (Oyuncu): İkinci oyuncu.\n    \"\"\"\n    print(\"Dövüş Başlıyor!\")\n    while oyuncu1.hayatta_mi() and oyuncu2.hayatta_mi():\n        # Oyuncular sırayla birbirine vurur\n        oyuncu1.vur(oyuncu2)\n        if not oyuncu2.hayatta_mi():\n            print(f\"{oyuncu2.isim} yenildi! {oyuncu1.isim} kazandı!\")\n            break\n\n        oyuncu2.vur(oyuncu1)\n        if not oyuncu1.hayatta_mi():\n            print(f\"{oyuncu1.isim} yenildi! {oyuncu2.isim} kazandı!\")\n            break\n\n# Oyuncu oluşturma\noyuncu1 = Oyuncu(\"Ryu\", 120, 15)\noyuncu2 = Oyuncu(\"Ken\", 100, 20)\n\n# Dövüşü başlat\ndovus(oyuncu1, oyuncu2)",
+  "language": "python",
+  "conversation_id": 342,
+  "created_at": "2025-10-17T02:36:38.247834",
+  "updated_at": "2025-10-17T02:36:38.247834",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Oyuncu:\n    def __init__(self, isim, can=100, vurus_gucu=10):\n        \"\"\"Oyuncu sınıfı.\n\n        Args:\n            isim (str): Oyuncunun ismi.\n            can (int): Oyuncunun başlangıç canı.\n            vurus_gucu (int): Oyuncunun vuruş gücü.\n        \"\"\"\n        self.isim = isim\n        self.can = can\n        self.vurus_gucu = vurus_gucu\n\n    def vur(self, rakip):\n        \"\"\"Rakibe vurma fonksiyonu.\n\n        Args:\n            rakip (Oyuncu): Vurulacak rakip oyuncu.\n        \"\"\"\n        vurus = random.randint(0, self.vurus_gucu) # Rastgele vuruş gücü\n        rakip.can -= vurus\n        print(f\"{self.isim}, {rakip.isim}'e {vurus} vurdu! Kalan can: {rakip.can}\")\n\n    def hayatta_mi(self):\n        \"\"\"Oyuncunun hayatta olup olmadığını kontrol eder.\"\"\"\n        return self.can > 0\n\ndef dovus(oyuncu1, oyuncu2):\n    \"\"\"İki oyuncu arasında dövüş başlatır.\n\n    Args:\n        oyuncu1 (Oyuncu): Birinci oyuncu.\n        oyuncu2 (Oyuncu): İkinci oyuncu.\n    \"\"\"\n    print(\"Dövüş Başlıyor!\")\n    while oyuncu1.hayatta_mi() and oyuncu2.hayatta_mi():\n        # Oyuncular sırayla birbirine vurur\n        oyuncu1.vur(oyuncu2)\n        if not oyuncu2.hayatta_mi():\n            print(f\"{oyuncu2.isim} yenildi! {oyuncu1.isim} kazandı!\")\n            break\n\n        oyuncu2.vur(oyuncu1)\n        if not oyuncu1.hayatta_mi():\n            print(f\"{oyuncu1.isim} yenildi! {oyuncu2.isim} kazandı!\")\n            break\n\n# Oyuncu oluşturma\noyuncu1 = Oyuncu(\"Ryu\", 120, 15)\noyuncu2 = Oyuncu(\"Ken\", 100, 20)\n\n# Dövüşü başlat\ndovus(oyuncu1, oyuncu2)",
+      "timestamp": "2025-10-17T02:36:38.247834"
+    }
+  ]
+}

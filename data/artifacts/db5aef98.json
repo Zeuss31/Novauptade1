@@ -1,0 +1,18 @@
+{
+  "id": "db5aef98",
+  "type": "markdown",
+  "title": "Bu kod, kullanıcının girdiği iki sayının toplamını hesaplar.",
+  "content": "# Bu kod, kullanıcının girdiği iki sayının toplamını hesaplar.\n\nsayi1 = float(input(\"Birinci sayıyı giriniz: \"))\nsayi2 = float(input(\"İkinci sayıyı giriniz: \"))\n\ntoplam = sayi1 + sayi2\n\nprint(\"İki sayının toplamı:\", toplam)",
+  "language": "python",
+  "conversation_id": 60,
+  "created_at": "2025-10-05T22:57:07.793036",
+  "updated_at": "2025-10-05T22:57:07.793036",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "# Bu kod, kullanıcının girdiği iki sayının toplamını hesaplar.\n\nsayi1 = float(input(\"Birinci sayıyı giriniz: \"))\nsayi2 = float(input(\"İkinci sayıyı giriniz: \"))\n\ntoplam = sayi1 + sayi2\n\nprint(\"İki sayının toplamı:\", toplam)",
+      "timestamp": "2025-10-05T22:57:07.793036"
+    }
+  ]
+}

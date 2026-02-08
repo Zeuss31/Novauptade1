@@ -1,0 +1,18 @@
+{
+  "id": "24472920",
+  "type": "markdown",
+  "title": "Oyuncuları oluştur",
+  "content": "# Oyuncuları oluştur\noyuncu1 = Karakter(\"Oyuncu 1\")\noyuncu2 = Karakter(\"Oyuncu 2\")\n\n# Oyun döngüsü\nwhile oyuncu1.hayatta_mi() and oyuncu2.hayatta_mi():\n    # Oyuncu 1'in saldırısı\n    oyuncu1.saldir(oyuncu2)\n    if not oyuncu2.hayatta_mi():\n        print(f\"{oyuncu2.ad} öldü! {oyuncu1.ad} kazandı!\")\n        break\n\n    # Oyuncu 2'nin saldırısı\n    oyuncu2.saldir(oyuncu1)\n    if not oyuncu1.hayatta_mi():\n        print(f\"{oyuncu1.ad} öldü! {oyuncu2.ad} kazandı!\")\n        break\n\n    # Can durumunu göster\n    print(f\"{oyuncu1.ad} can: {oyuncu1.can}\")\n    print(f\"{oyuncu2.ad} can: {oyuncu2.can}\")\n    print(\"-\" * 20)  # Ayraç",
+  "language": "python",
+  "conversation_id": 136,
+  "created_at": "2025-10-09T20:35:27.021109",
+  "updated_at": "2025-10-09T20:35:27.021109",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "# Oyuncuları oluştur\noyuncu1 = Karakter(\"Oyuncu 1\")\noyuncu2 = Karakter(\"Oyuncu 2\")\n\n# Oyun döngüsü\nwhile oyuncu1.hayatta_mi() and oyuncu2.hayatta_mi():\n    # Oyuncu 1'in saldırısı\n    oyuncu1.saldir(oyuncu2)\n    if not oyuncu2.hayatta_mi():\n        print(f\"{oyuncu2.ad} öldü! {oyuncu1.ad} kazandı!\")\n        break\n\n    # Oyuncu 2'nin saldırısı\n    oyuncu2.saldir(oyuncu1)\n    if not oyuncu1.hayatta_mi():\n        print(f\"{oyuncu1.ad} öldü! {oyuncu2.ad} kazandı!\")\n        break\n\n    # Can durumunu göster\n    print(f\"{oyuncu1.ad} can: {oyuncu1.can}\")\n    print(f\"{oyuncu2.ad} can: {oyuncu2.can}\")\n    print(\"-\" * 20)  # Ayraç",
+      "timestamp": "2025-10-09T20:35:27.021109"
+    }
+  ]
+}

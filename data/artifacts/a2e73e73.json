@@ -1,0 +1,18 @@
+{
+  "id": "a2e73e73",
+  "type": "markdown",
+  "title": "Bir liste oluşturalım",
+  "content": "# Bir liste oluşturalım\nmeyveler = [\"elma\", \"armut\", \"çilek\", \"muz\"]\n\n# Liste içindeki elemanları yazdıralım\nfor meyve in meyveler:\n    print(meyve)",
+  "language": "python",
+  "conversation_id": 533,
+  "created_at": "2026-01-21T19:12:39.704494",
+  "updated_at": "2026-01-21T19:12:39.704494",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "# Bir liste oluşturalım\nmeyveler = [\"elma\", \"armut\", \"çilek\", \"muz\"]\n\n# Liste içindeki elemanları yazdıralım\nfor meyve in meyveler:\n    print(meyve)",
+      "timestamp": "2026-01-21T19:12:39.704494"
+    }
+  ]
+}

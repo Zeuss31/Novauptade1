@@ -1,0 +1,18 @@
+{
+  "id": "32f7ae7e",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can=100):\n        \"\"\"\n        Karakter sınıfının yapıcı metodu.\n\n        Args:\n            ad (str): Karakterin adı.\n            can (int): Karakterin başlangıç canı (varsayılan 100).\n        \"\"\"\n        self.ad = ad\n        self.can = can\n\n    def saldir(self, rakip):\n        \"\"\"\n        Rakibe saldırma metodu.\n\n        Args:\n            rakip (Karakter): Saldırılan rakip karakter.\n        \"\"\"\n        hasar = random.randint(10, 20)  # Rastgele bir hasar değeri (10-20 arası)\n        rakip.can -= hasar\n        print(f\"{self.ad}, {rakip.ad}'e {hasar} hasar verdi!\")\n\n    def hayatta_mi(self):\n        \"\"\"\n        Karakterin hayatta olup olmadığını kontrol etme metodu.\n\n        Returns:\n            bool: Karakterin canı 0'dan büyükse True, değilse False.\n        \"\"\"\n        return self.can > 0",
+  "language": "python",
+  "conversation_id": 136,
+  "created_at": "2025-10-09T20:35:27.019991",
+  "updated_at": "2025-10-09T20:35:27.019991",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\nclass Karakter:\n    def __init__(self, ad, can=100):\n        \"\"\"\n        Karakter sınıfının yapıcı metodu.\n\n        Args:\n            ad (str): Karakterin adı.\n            can (int): Karakterin başlangıç canı (varsayılan 100).\n        \"\"\"\n        self.ad = ad\n        self.can = can\n\n    def saldir(self, rakip):\n        \"\"\"\n        Rakibe saldırma metodu.\n\n        Args:\n            rakip (Karakter): Saldırılan rakip karakter.\n        \"\"\"\n        hasar = random.randint(10, 20)  # Rastgele bir hasar değeri (10-20 arası)\n        rakip.can -= hasar\n        print(f\"{self.ad}, {rakip.ad}'e {hasar} hasar verdi!\")\n\n    def hayatta_mi(self):\n        \"\"\"\n        Karakterin hayatta olup olmadığını kontrol etme metodu.\n\n        Returns:\n            bool: Karakterin canı 0'dan büyükse True, değilse False.\n        \"\"\"\n        return self.can > 0",
+      "timestamp": "2025-10-09T20:35:27.019991"
+    }
+  ]
+}

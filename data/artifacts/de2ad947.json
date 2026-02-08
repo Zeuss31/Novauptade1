@@ -1,0 +1,18 @@
+{
+  "id": "de2ad947",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "class Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n        self.iyilesme_sayisi = 2  # İyileşme sayısını sınırlayalım\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'e {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0\n        print(f\"{rakip.ad}'in canı: {rakip.can}\")\n\n    def iyiles(self):\n        if self.iyilesme_sayisi > 0:\n            iyilesme_miktari = random.randint(10, 20)\n            self.can += iyilesme_miktari\n            print(f\"{self.ad}, {iyilesme_miktari} can iyileştirdi. Yeni canı: {self.can}\")\n            self.iyilesme_sayisi -= 1\n        else:\n            print(f\"{self.ad}'in iyileşme hakkı kalmadı!\")\n\n    def hayatta_mi(self):\n        return self.can > 0",
+  "language": "python",
+  "conversation_id": 333,
+  "created_at": "2025-10-17T02:22:40.482178",
+  "updated_at": "2025-10-17T02:22:40.482178",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "class Karakter:\n    def __init__(self, ad, can, saldiri_gucu):\n        self.ad = ad\n        self.can = can\n        self.saldiri_gucu = saldiri_gucu\n        self.iyilesme_sayisi = 2  # İyileşme sayısını sınırlayalım\n\n    def saldir(self, rakip):\n        vurus = random.randint(self.saldiri_gucu // 2, self.saldiri_gucu)\n        print(f\"{self.ad}, {rakip.ad}'e {vurus} hasar verdi!\")\n        rakip.can -= vurus\n        if rakip.can < 0:\n            rakip.can = 0\n        print(f\"{rakip.ad}'in canı: {rakip.can}\")\n\n    def iyiles(self):\n        if self.iyilesme_sayisi > 0:\n            iyilesme_miktari = random.randint(10, 20)\n            self.can += iyilesme_miktari\n            print(f\"{self.ad}, {iyilesme_miktari} can iyileştirdi. Yeni canı: {self.can}\")\n            self.iyilesme_sayisi -= 1\n        else:\n            print(f\"{self.ad}'in iyileşme hakkı kalmadı!\")\n\n    def hayatta_mi(self):\n        return self.can > 0",
+      "timestamp": "2025-10-17T02:22:40.482178"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "a0d42310",
+  "type": "code",
+  "title": "Function: __init__",
+  "content": "class Kopek:\n    # Sınıfın yapıcı metodu (constructor).\n    # Bir nesne oluşturulduğunda otomatik olarak çağrılır.\n    def __init__(self, ad, cins, yas):\n        # Nesnenin özelliklerini tanımlıyoruz.\n        self.ad = ad\n        self.cins = cins\n        self.yas = yas\n\n    # Nesnenin davranışını tanımlayan bir metot.\n    def havla(self):\n        print(\"Hav hav!\")\n\n    def bilgileri_goster(self):\n        print(f\"Adı: {self.ad}, Cinsi: {self.cins}, Yaşı: {self.yas}\")\n\n# \"Kopek\" sınıfından bir nesne oluşturuyoruz.\nbenim_kopegim = Kopek(\"Max\", \"Golden Retriever\", 3)\n\n# Nesnenin özelliklerine erişiyoruz.\nprint(benim_kopegim.ad)  # Çıktı: Max\nprint(benim_kopegim.yas)  # Çıktı: 3\n\n# Nesnenin metotlarını çağırıyoruz.\nbenim_kopegim.havla()  # Çıktı: Hav hav!\nbenim_kopegim.bilgileri_goster()  # Çıktı: Adı: Max, Cinsi: Golden Retriever, Yaşı: 3",
+  "language": "python",
+  "conversation_id": 310,
+  "created_at": "2025-10-16T14:24:52.771038",
+  "updated_at": "2025-10-16T14:24:52.771038",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "class Kopek:\n    # Sınıfın yapıcı metodu (constructor).\n    # Bir nesne oluşturulduğunda otomatik olarak çağrılır.\n    def __init__(self, ad, cins, yas):\n        # Nesnenin özelliklerini tanımlıyoruz.\n        self.ad = ad\n        self.cins = cins\n        self.yas = yas\n\n    # Nesnenin davranışını tanımlayan bir metot.\n    def havla(self):\n        print(\"Hav hav!\")\n\n    def bilgileri_goster(self):\n        print(f\"Adı: {self.ad}, Cinsi: {self.cins}, Yaşı: {self.yas}\")\n\n# \"Kopek\" sınıfından bir nesne oluşturuyoruz.\nbenim_kopegim = Kopek(\"Max\", \"Golden Retriever\", 3)\n\n# Nesnenin özelliklerine erişiyoruz.\nprint(benim_kopegim.ad)  # Çıktı: Max\nprint(benim_kopegim.yas)  # Çıktı: 3\n\n# Nesnenin metotlarını çağırıyoruz.\nbenim_kopegim.havla()  # Çıktı: Hav hav!\nbenim_kopegim.bilgileri_goster()  # Çıktı: Adı: Max, Cinsi: Golden Retriever, Yaşı: 3",
+      "timestamp": "2025-10-16T14:24:52.771038"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "5dcba7a4",
+  "type": "code",
+  "title": "Function: dovus_oyunu",
+  "content": "import random\n\ndef dovus_oyunu():\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1_cani = 100\n    oyuncu2_cani = 100\n\n    sira = random.randint(1, 2)  # İlk kimin saldıracağını rastgele belirle\n\n    print(f\"\\n{oyuncu1_adi}: {oyuncu1_cani} Can\")\n    print(f\"{oyuncu2_adi}: {oyuncu2_cani} Can\\n\")\n\n    while oyuncu1_cani > 0 and oyuncu2_cani > 0:\n        if sira == 1:\n            print(f\"{oyuncu1_adi}'nın sırası!\")\n            saldiri_gucu = random.randint(10, 20)\n            oyuncu2_cani -= saldiri_gucu\n            print(f\"{oyuncu1_adi}, {oyuncu2_adi}'ya {saldiri_gucu} hasar verdi!\")\n            sira = 2\n        else:\n            print(f\"{oyuncu2_adi}'nın sırası!\")\n            saldiri_gucu = random.randint(10, 20)\n            oyuncu1_cani -= saldiri_gucu\n            print(f\"{oyuncu2_adi}, {oyuncu1_adi}'ya {saldiri_gucu} hasar verdi!\")\n            sira = 1\n\n        print(f\"\\n{oyuncu1_adi}: {oyuncu1_cani} Can\")\n        print(f\"{oyuncu2_adi}: {oyuncu2_cani} Can\\n\")\n\n        input(\"Sıradaki tura geçmek için Enter'a basın...\")\n\n    # Oyun bitti, kazananı belirle\n    if oyuncu1_cani <= 0:\n        print(f\"{oyuncu2_adi} KAZANDI!\")\n    else:\n        print(f\"{oyuncu1_adi} KAZANDI!\")\n\n# Oyunu başlat\ndovus_oyunu()",
+  "language": "python",
+  "conversation_id": 332,
+  "created_at": "2025-10-17T02:19:35.914862",
+  "updated_at": "2025-10-17T02:19:35.914862",
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "content": "import random\n\ndef dovus_oyunu():\n    oyuncu1_adi = input(\"1. Oyuncunun adını girin: \")\n    oyuncu2_adi = input(\"2. Oyuncunun adını girin: \")\n\n    oyuncu1_cani = 100\n    oyuncu2_cani = 100\n\n    sira = random.randint(1, 2)  # İlk kimin saldıracağını rastgele belirle\n\n    print(f\"\\n{oyuncu1_adi}: {oyuncu1_cani} Can\")\n    print(f\"{oyuncu2_adi}: {oyuncu2_cani} Can\\n\")\n\n    while oyuncu1_cani > 0 and oyuncu2_cani > 0:\n        if sira == 1:\n            print(f\"{oyuncu1_adi}'nın sırası!\")\n            saldiri_gucu = random.randint(10, 20)\n            oyuncu2_cani -= saldiri_gucu\n            print(f\"{oyuncu1_adi}, {oyuncu2_adi}'ya {saldiri_gucu} hasar verdi!\")\n            sira = 2\n        else:\n            print(f\"{oyuncu2_adi}'nın sırası!\")\n            saldiri_gucu = random.randint(10, 20)\n            oyuncu1_cani -= saldiri_gucu\n            print(f\"{oyuncu2_adi}, {oyuncu1_adi}'ya {saldiri_gucu} hasar verdi!\")\n            sira = 1\n\n        print(f\"\\n{oyuncu1_adi}: {oyuncu1_cani} Can\")\n        print(f\"{oyuncu2_adi}: {oyuncu2_cani} Can\\n\")\n\n        input(\"Sıradaki tura geçmek için Enter'a basın...\")\n\n    # Oyun bitti, kazananı belirle\n    if oyuncu1_cani <= 0:\n        print(f\"{oyuncu2_adi} KAZANDI!\")\n    else:\n        print(f\"{oyuncu1_adi} KAZANDI!\")\n\n# Oyunu başlat\ndovus_oyunu()",
+      "timestamp": "2025-10-17T02:19:35.914862"
+    }
+  ]
+}
