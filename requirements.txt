@@ -21,6 +21,8 @@ gtts
 flask==3.0.0
 flask-cors==4.0.0
 gunicorn 
+flask-socketio
+python-socketio
 
 # AI Providers
 groq==0.4.2
