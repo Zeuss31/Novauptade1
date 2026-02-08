@@ -1,4 +1,5 @@
 .env
 chatbot.db
 uploads/
-__pycache__/
+__pycache__/ 
+System Volume Information/
